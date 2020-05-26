@@ -30,6 +30,10 @@ include('header.php');
         <button type="button" class="btn btn-warning mb-3">Let start!</button>
     </div>
 </div>
+<div class="container" id="step-quote">
+    <p class="h1">Enjoy snacks with only 3 steps</p>
+    <img src="./images/stepbystep.png" class="rounded mx-auto d-block" alt="stepbystep">
+</div>
 
 <?php
 include('footer.php');

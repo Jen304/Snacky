@@ -26,3 +26,7 @@ html, body{
     font-family: 'Amatic SC', cursive;
     font-weight: bold;
 }
+/* style step quote */
+#step-quote{
+    text-align: center;
+}
