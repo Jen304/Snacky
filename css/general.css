@@ -9,6 +9,8 @@ html, body{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: right top;
-    background-size: contain; 
-    height: 50vh;
+    background-size: cover; 
+    min-height: 85vh;
+    margin-top: -16px;
+    
 }
