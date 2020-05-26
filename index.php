@@ -2,8 +2,8 @@
 include('header.php');
 ?>
 <nav class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Snacky</h5>
 
+    <img src="./images/logo.png" class="mr-md-auto " id-"logo" alt="logo">
 
     <div class="nav nav-bar justify-content-end align-items-center">
         <div class="nav-item ">
