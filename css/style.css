@@ -1,8 +1,9 @@
+/* General */
 html, body{
     padding: 0;
     margin: 0;
 }
-
+/* Style the banner */
 #banner{
     background-image: url("../images/banner.png");
     background-color: #cccccc;
@@ -12,5 +13,16 @@ html, body{
     background-size: cover; 
     min-height: 85vh;
     margin-top: -16px;
-    
+    position: relative;
+}
+
+#greeting-quote{
+    background-color: rgba(1, 8, 43, 0.8) !important;
+    padding: 20px;
+    text-align: center;
+}
+#greeting-quote h1{
+    color: #f19900;
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
 }
