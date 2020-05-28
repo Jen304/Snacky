@@ -71,38 +71,29 @@ include('../header.php');
                                 $product_id = mysqli_insert_id($dbc);
                                 //-------Insert data into Product Category table-------
                                 //If chocolate is checked
-                                if(isset($_POST['chocolate'])){
-                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 1);";
-                                    mysqli_query($dbc, $insert_category);
-                                }
-                                //If salty is checked
-                                if(isset($_POST['salty'])){
-                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 2);";
-                                    mysqli_query($dbc, $insert_category);
-                                }
-                                //If sweet is checked
-                                if(isset($_POST['sweet'])){
-                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 3);";
-                                    mysqli_query($dbc, $insert_category);
-                                }
-                                //If healthy is checked
-                                if(isset($_POST['healthy'])){
-                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 4);";
-                                    mysqli_query($dbc, $insert_category);
-                                }
-                                //If homemade is checked
-                                if(isset($_POST['homemade'])){
-                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 5);";
-                                    mysqli_query($dbc, $insert_category);
-                                }
-                                //If gluten-free is checked
-                                if(isset($_POST['gluten-free'])){
-                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 6);";
-                                    mysqli_query($dbc, $insert_category);
-                                }
-                                //echo 'Product Category has been added.<br>';
+                                $category_list = $_POST['category'];
+                               
+                                    if(!empty($category_list)){                                   
+                                        echo "Has some";
+                                        $Num = count($category_list);
+                                        for($i = 0; $i < $Num; $i++){
+                                            echo "product_id ". $product_id;
+                                             $insert_category = "INSERT INTO product_category VALUES ($product_id, $category_list[$i]);";
+                                             mysqli_query($dbc, $insert_category);
+                                            
+                                           
+    
+                                        }
+                                        
+                                    }else{
+                                        echo "nothing";
+                                    }
+                               
+                                
                                 mysqli_close($dbc);	
-                                echo "<script> alert('Product was inserted.'); </script>";    
+                                
+                                echo "<script> alert('Product was inserted.'); </script>"; 
+                                unset($dbc);   
                             }
                         }
                     }
@@ -145,7 +136,7 @@ include('../header.php');
     <!--#########################-->
     <div class="container-fluid h-100">
         <div class="row h-100  ">
-            <form class="col-12" action="add_product.php" method="POST" enctype="multipart/form-data">
+            <form class="col-12" action="index.php" method="POST" enctype="multipart/form-data">
                 <!---------------- Header --------------->
                 <h2 class="pb-4">Add Product</h2>
                 <!---------------- Product Name --------------->
@@ -176,80 +167,56 @@ include('../header.php');
                     </div>
                 </div>
                 <!---------------- Category --------------->
+                <?php
+                    include('db_connection.php');
+                    $categories_query = "SELECT * FROM category
+                                    ORDER BY category_id";
+
+                    $categories = mysqli_query($dbc, $categories_query);
+                    ?>
                 <div class="form-group row mb-5">
                     <div class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center">Category</div>
-                    <!---------------- Chocolate --------------->
-                    <div class="col-lg-3 col-md-2 col-sm-4 col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="chocolate" name="chocolate"
-                                value="chocolate">
-                            <lable class="form-check-label" for="chocolate">Chocolate</lable>
-                        </div>
-                    </div>
-                    <!---------------- Salty --------------->
-                    <div class="col-lg-3 col-md-2 col-sm-4 col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="salty" name="salty" value="salty">
-                            <lable class="form-check-label" for="salty">Salty</lable>
-                        </div>
-                    </div>
-                    <!---------------- Sweet --------------->
-                    <div class="col-lg-3 col-md-2 col-sm-4 col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="sweet" name="sweet" value="sweet">
-                            <lable class="form-check-label" for="sweet">Sweet</lable>
-                        </div>
-                    </div>
-                    <!---------------- Healthy --------------->
-                    <div class="col-lg-3 col-md-2 col-sm-4 col-12 offset-sm-4 offset-md-0 offset-lg-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="healthy" name="healthy" value="healthy">
-                            <lable class="form-check-label" for="healty">Healthy</lable>
-                        </div>
-                    </div>
-                    <!---------------- Homemade --------------->
-                    <div class="col-lg-3 col-md-2 col-sm-4 col-12 offset-sm-4 offset-md-0 offset-lg-0">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="homemade" name="homemade"
-                                value="homemade">
-                            <lable class="form-check-label" for="homemade">Homemade</lable>
-                        </div>
-                    </div>
-                    <!---------------- Gluten Free --------------->
-                    <div class="col-lg-3 col-md-2 col-sm-4 col-12 offset-sm-4 offset-md-0 offset-lg-0">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gluten-free" name="gluten-free"
-                                value="gluten-free">
-                            <lable class="form-check-label" for="gluten-free">Gluten-Free</lable>
-                        </div>
-                    </div>
+
+                    <?php
+                    while($category = mysqli_fetch_array($categories, MYSQLI_ASSOC)){
+                        echo " <div class=\"col-lg-3 col-md-2 col-sm-4 col-12\">";
+                        echo "<div class=\"form-check\">";
+                        
+                        echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"category[]\" value=\"{$category["category_id"]}\"/>";
+                        echo "<lable class=\"form-check-label\" for=\"category\">{$category["category_name"]}</lable>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                    ?>
                 </div>
-                <!---------------- Image Upload --------------->
-                <div class="form-group row mb-5">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
-                        <label class="btn btn-secondary" style="display: inline-block" id="image">
-                            Upload Image <input class="form-control-file" type="file" id="file" name="file" hidden
-                                required>
-                        </label>
-                    </div>
-                    <div class="col-lg-5">
-                        <span id="file-selected-text">No image is chosen</span>
-                    </div>
-                </div>
-                <!---------------- Buttons --------------->
-                <div class="form-group row justify-content-center">
-                    <!---------------- Clear Button --------------->
-                    <div class="col-2">
-                        <button type="reset" class="btn btn-primary">Clear</button>
-                    </div>
-                    <!---------------- Submit Button --------------->
-                    <div class="col-2">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </form>
         </div>
+
+
+        <!---------------- Image Upload --------------->
+        <div class="form-group row mb-5">
+            <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
+                <label class="btn btn-secondary" style="display: inline-block" id="image">
+                    Upload Image <input class="form-control-file" type="file" id="file" name="file" hidden required>
+                </label>
+            </div>
+            <div class="col-lg-5">
+                <span id="file-selected-text">No image is chosen</span>
+            </div>
+        </div>
+        <!---------------- Buttons --------------->
+        <div class="form-group row justify-content-center">
+            <!---------------- Clear Button --------------->
+            <div class="col-2">
+                <button type="reset" class="btn btn-primary">Clear</button>
+            </div>
+            <!---------------- Submit Button --------------->
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        </form>
+    </div>
     </div>
     <!------------------------------------- HTML end ------------------------------------>
 
