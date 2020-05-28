@@ -55,6 +55,11 @@
 					<td>
 						<span class="text">Price</span>
 					</td>
+					
+					<td>
+						<span class="text">Add to Cart</span>
+					</td>
+					
 				</tr>';
 				$prod_result = mysqli_query ($con, $prod);
 				while ($product = mysqli_fetch_array ($prod_result, MYSQLI_ASSOC)) {
@@ -63,7 +68,8 @@
 				<td>{$product["product_name"]}</td>
 				<td>{$product["product_desc"]}</td>
 				<td><img src='images/{$product["image_name"]}' width='100' height='100'/></td>
-				<td>{$product["unit_price"]}</td>";
+				<td>{$product["unit_price"]}</td>
+				<td><input type='submit' value='Add'></td>";
 				echo "</tr>";
 							
 				}
