@@ -1,5 +1,5 @@
 <?php
-
+    error_reporting(0);
     define('SERVER', 'localhost');
     $server = 'localhost';
     //Change it to the user name of your schema

@@ -76,65 +76,70 @@
                     echo "<script> alert('Duplicated Product not allowed'); </script>";
                 }
                 else{
-                    //-------Inserting data to image table------------
-                    $insert_image = "INSERT INTO image (image_path, image_name)
-                    VALUES('test/user/ics199/', ' $file_name ');";
-                    //if Image was not inserted
-                    if(!mysqli_query($dbc, $insert_image)){
-                        //echo 'Image could not be inserted';
-                        echo '<script> alert("An error occured(Image Insertion)."); </script>';
-                    }
-                    else{
-                        //echo 'Image was inserted. <br>';
-                        //Getting image id of inserted image
-                        $image_id = mysqli_insert_id($dbc);
-                        //-------Inserting product data to Product table-----------
-                        $insert_product = "INSERT INTO product (product_name, product_desc, image_id, unit_price)
-                                                        VALUES('$product_name', '$product_description', $image_id , $product_price);";
-                        
-                        //if product is not inserted
-                        if(!mysqli_query($dbc, $insert_product)){
-                            echo '<script> alert("An error occured(Product Insertion)."); </script>';
+                    if(upload_image($file_name)){
+                        //-------Inserting data to image table------------
+                        $insert_image = "INSERT INTO image (image_path, image_name)
+                        VALUES('images/', ' $file_name ');";
+                        //if Image was not inserted
+                        if(!mysqli_query($dbc, $insert_image)){
+                            //echo 'Image could not be inserted';
+                            echo '<script> alert("An error occured(Image Insertion)."); </script>';
                         }
                         else{
-                            //echo 'Product was inserted. <br>';
-                            //Getting product id of inserted product
-                            $product_id = mysqli_insert_id($dbc);
-                            //-------Insert data into Product Category table-------
-                            //If chocolate is checked
-                            if(isset($_POST['chocolate'])){
-                                $insert_category = "INSERT INTO product_category VALUES ($product_id, 1);";
-                                mysqli_query($dbc, $insert_category);
+                            //echo 'Image was inserted. <br>';
+                            //Getting image id of inserted image
+                            $image_id = mysqli_insert_id($dbc);
+                            //-------Inserting product data to Product table-----------
+                            $insert_product = "INSERT INTO product (product_name, product_desc, image_id, unit_price)
+                                                            VALUES('$product_name', '$product_description', $image_id , $product_price);";
+                            
+                            //if product is not inserted
+                            if(!mysqli_query($dbc, $insert_product)){
+                                echo '<script> alert("An error occured(Product Insertion)."); </script>';
                             }
-                            //If salty is checked
-                            if(isset($_POST['salty'])){
-                                $insert_category = "INSERT INTO product_category VALUES ($product_id, 2);";
-                                mysqli_query($dbc, $insert_category);
+                            else{
+                                //echo 'Product was inserted. <br>';
+                                //Getting product id of inserted product
+                                $product_id = mysqli_insert_id($dbc);
+                                //-------Insert data into Product Category table-------
+                                //If chocolate is checked
+                                if(isset($_POST['chocolate'])){
+                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 1);";
+                                    mysqli_query($dbc, $insert_category);
+                                }
+                                //If salty is checked
+                                if(isset($_POST['salty'])){
+                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 2);";
+                                    mysqli_query($dbc, $insert_category);
+                                }
+                                //If sweet is checked
+                                if(isset($_POST['sweet'])){
+                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 3);";
+                                    mysqli_query($dbc, $insert_category);
+                                }
+                                //If healthy is checked
+                                if(isset($_POST['healthy'])){
+                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 4);";
+                                    mysqli_query($dbc, $insert_category);
+                                }
+                                //If homemade is checked
+                                if(isset($_POST['homemade'])){
+                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 5);";
+                                    mysqli_query($dbc, $insert_category);
+                                }
+                                //If gluten-free is checked
+                                if(isset($_POST['gluten-free'])){
+                                    $insert_category = "INSERT INTO product_category VALUES ($product_id, 6);";
+                                    mysqli_query($dbc, $insert_category);
+                                }
+                                //echo 'Product Category has been added.<br>';
+                                mysqli_close($dbc);	
+                                echo "<script> alert('Product was inserted.'); </script>";    
                             }
-                            //If sweet is checked
-                            if(isset($_POST['sweet'])){
-                                $insert_category = "INSERT INTO product_category VALUES ($product_id, 3);";
-                                mysqli_query($dbc, $insert_category);
-                            }
-                            //If healthy is checked
-                            if(isset($_POST['healthy'])){
-                                $insert_category = "INSERT INTO product_category VALUES ($product_id, 4);";
-                                mysqli_query($dbc, $insert_category);
-                            }
-                            //If homemade is checked
-                            if(isset($_POST['homemade'])){
-                                $insert_category = "INSERT INTO product_category VALUES ($product_id, 5);";
-                                mysqli_query($dbc, $insert_category);
-                            }
-                            //If gluten-free is checked
-                            if(isset($_POST['gluten-free'])){
-                                $insert_category = "INSERT INTO product_category VALUES ($product_id, 6);";
-                                mysqli_query($dbc, $insert_category);
-                            }
-                            //echo 'Product Category has been added.<br>';
-                            mysqli_close($dbc);	
-                            echo "<script> alert('Product was inserted.'); </script>";    
                         }
+                    }
+                    else{
+                        echo "<script> alert('An error occured'); </script>";
                     }
                 }
             }         
@@ -144,6 +149,25 @@
             echo "<script> alert('All fields must be filled'); </script>";
         }
     }  
+
+    function upload_image($file_name){
+        if(is_uploaded_file($_FILES['file']['tmp_name'])){
+            $destination = 'images/' . $file_name;
+            
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $destination)){
+                echo "<script> alert('Image has been uploaded'); </script>";
+                return True;
+            }
+            else{
+                echo "<script> alert('An error ocuured'); </script>";
+                return False;
+            }
+        }
+        else{
+            echo "<script> alert('Image has not been uploaded'); </script>";
+            return False;
+        }
+    }
 ?>
 <!------------------------------------- PHP end ------------------------------------>
 
