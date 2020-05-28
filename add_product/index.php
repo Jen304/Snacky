@@ -168,7 +168,7 @@ include('../header.php');
                 </div>
                 <!---------------- Category --------------->
                 <?php
-                    include('db_connection.php');
+                    include('../db_connection.php');
                     $categories_query = "SELECT * FROM category
                                     ORDER BY category_id";
 
