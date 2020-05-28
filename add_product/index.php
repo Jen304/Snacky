@@ -1,41 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include('../header.php');
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Snacky - Add Product</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <style>
-        body,
-        html {
-            height: 100%;
-        }
-
-        form {
-            margin: auto;
-        }
-
-        .container-fluid{
-            padding:5%;
-        }
-
-        .label-size{
-            font-size: 1.4rem;
-        }
-
-        @media (max-width: 575px){
-            .label-center{
-                text-align: center;
-            }
-            .test{
-                margin:auto;
-            }
-        }
-    </style>
+?>
+<title>Add product | Snacky</title>
+<link rel="stylesheet" href="../css/add_product.css">
 </head>
 
 <body>
@@ -43,7 +11,7 @@
     <!--#########################-->
     <!--       PHP CODE          -->
     <!--#########################-->
-<?php
+    <?php
     include('db_connection.php');
     error_reporting(E_ALL & ~E_NOTICE); 
     //Getting Product Name
@@ -78,8 +46,8 @@
                 else{
                     if(upload_image($file_name)){
                         //-------Inserting data to image table------------
-                        $insert_image = "INSERT INTO image (image_path, image_name)
-                        VALUES('images/', ' $file_name ');";
+                        $insert_image = "INSERT INTO image (image_name)
+                        VALUES(' $file_name ');";
                         //if Image was not inserted
                         if(!mysqli_query($dbc, $insert_image)){
                             //echo 'Image could not be inserted';
@@ -152,7 +120,7 @@
 
     function upload_image($file_name){
         if(is_uploaded_file($_FILES['file']['tmp_name'])){
-            $destination = 'images/' . $file_name;
+            $destination = '../images/products/' . $file_name;
             
             if(move_uploaded_file($_FILES['file']['tmp_name'], $destination)){
                 echo "<script> alert('Image has been uploaded'); </script>";
@@ -169,7 +137,7 @@
         }
     }
 ?>
-<!------------------------------------- PHP end ------------------------------------>
+    <!------------------------------------- PHP end ------------------------------------>
 
 
     <!--#########################-->
@@ -177,28 +145,34 @@
     <!--#########################-->
     <div class="container-fluid h-100">
         <div class="row h-100  ">
-            <form class="col-12" action="add_product.php" method="POST"  enctype="multipart/form-data">
+            <form class="col-12" action="add_product.php" method="POST" enctype="multipart/form-data">
                 <!---------------- Header --------------->
                 <h2 class="pb-4">Add Product</h2>
                 <!---------------- Product Name --------------->
                 <div class="form-group row mb-5">
-                    <label for="product_name" class="col-lg-3 col-md-3 col-sm-4 col-12 col-form-label label-size label-center">Name</label>
+                    <label for="product_name"
+                        class="col-lg-3 col-md-3 col-sm-4 col-12 col-form-label label-size label-center">Name</label>
                     <div class=" col-lg-6 col-md-7 col-sm-7 col-12">
-                        <input type="text" name="product_name" id="product_name" class="form-control" maxlength="20" required>
+                        <input type="text" name="product_name" id="product_name" class="form-control" maxlength="20"
+                            required>
                     </div>
                 </div>
                 <!---------------- Product Description --------------->
                 <div class="form-group row mb-5">
-                    <label for="description" class="col-lg-3 col-md-3 col-sm-4 col-12 col-form-label label-size label-center">Description</label>
-                    <div class="col-lg-6 col-md-7 col-sm-7 col-12">
-                        <textarea type="text" name="description" id="description" class="form-control" maxlength="50"required></textarea>
+                    <label for="description"
+                        class="col-lg-3 col-md-3 col-sm-4 col-12 col-form-label label-size label-center">Description</label>
+                    <div class="col-lg-6 col-md-7 col-sm-7 col-1,,2">
+                        <textarea type="text" name="description" id="description" class="form-control" maxlength="150"
+                            required></textarea>
                     </div>
                 </div>
                 <!---------------- Unit Price --------------->
                 <div class="form-group row mb-5">
-                    <label for="price" class="col-lg-3 col-md-3 col-sm-4 col-12 col-form-label label-size label-center">Price</label>
+                    <label for="price"
+                        class="col-lg-3 col-md-3 col-sm-4 col-12 col-form-label label-size label-center">Price</label>
                     <div class="col-lg-3 col-md-4 col-sm-5 col-6 test">
-                        <input type="number" step="0.01" name="price" id="price" class="form-control" min="0.00" max="999.99" required>
+                        <input type="number" step="0.01" name="price" id="price" class="form-control" min="0.00"
+                            max="999.99" required>
                     </div>
                 </div>
                 <!---------------- Category --------------->
@@ -207,7 +181,8 @@
                     <!---------------- Chocolate --------------->
                     <div class="col-lg-3 col-md-2 col-sm-4 col-12">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="chocolate" name="chocolate" value="chocolate">
+                            <input class="form-check-input" type="checkbox" id="chocolate" name="chocolate"
+                                value="chocolate">
                             <lable class="form-check-label" for="chocolate">Chocolate</lable>
                         </div>
                     </div>
@@ -235,28 +210,31 @@
                     <!---------------- Homemade --------------->
                     <div class="col-lg-3 col-md-2 col-sm-4 col-12 offset-sm-4 offset-md-0 offset-lg-0">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="homemade" name="homemade" value="homemade">
+                            <input class="form-check-input" type="checkbox" id="homemade" name="homemade"
+                                value="homemade">
                             <lable class="form-check-label" for="homemade">Homemade</lable>
                         </div>
                     </div>
                     <!---------------- Gluten Free --------------->
                     <div class="col-lg-3 col-md-2 col-sm-4 col-12 offset-sm-4 offset-md-0 offset-lg-0">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gluten-free" name="gluten-free" value="gluten-free">
+                            <input class="form-check-input" type="checkbox" id="gluten-free" name="gluten-free"
+                                value="gluten-free">
                             <lable class="form-check-label" for="gluten-free">Gluten-Free</lable>
                         </div>
-                    </div>        
+                    </div>
                 </div>
                 <!---------------- Image Upload --------------->
                 <div class="form-group row mb-5">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label> 
+                    <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
                     <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
-                        <label class="btn btn-secondary" style="display: inline-block"id="image">
-                            Upload Image <input class="form-control-file" type="file" id="file" name="file" hidden required>
+                        <label class="btn btn-secondary" style="display: inline-block" id="image">
+                            Upload Image <input class="form-control-file" type="file" id="file" name="file" hidden
+                                required>
                         </label>
                     </div>
                     <div class="col-lg-5">
-                        <span  id="file-selected-text">No image is chosen</span>
+                        <span id="file-selected-text">No image is chosen</span>
                     </div>
                 </div>
                 <!---------------- Buttons --------------->
@@ -268,42 +246,33 @@
                     <!---------------- Submit Button --------------->
                     <div class="col-2">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>                   
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-<!------------------------------------- HTML end ------------------------------------>
+    <!------------------------------------- HTML end ------------------------------------>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
 
     <!--#########################-->
     <!--     JavaScript CODE     -->
     <!--#########################-->
     <script>
-        const fileInput = document.getElementById("file");
-        const fileInputLabel = document.getElementById("file-selected-text");
+    const fileInput = document.getElementById("file");
+    const fileInputLabel = document.getElementById("file-selected-text");
 
-        fileInput.addEventListener("change", function(){
-            if(fileInput.value){
-                fileInputLabel.innerHTML = fileInput.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-            }
-            else{
-                fileInputLabel.innerHTML = "No image is chosen";
-            }
-        });
+    fileInput.addEventListener("change", function() {
+        if (fileInput.value) {
+            fileInputLabel.innerHTML = fileInput.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+        } else {
+            fileInputLabel.innerHTML = "No image is chosen";
+        }
+    });
     </script>
     <!------------------------------------- JavaScript end ------------------------------------>
 
-</body>
-
-</html>
+    <?php
+include ('../footer.php');
+?>

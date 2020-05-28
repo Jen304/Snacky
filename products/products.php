@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-	<html lang="en">
-	
-		<head>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>Display Product</title>
-		</head>
-		
-		<body>
-			<?php
-			include ('includes/header.php');
-			include ('includes/mysqli_connect.php');
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Products | Snacky</title>
+</head>
+
+<body>
+    <?php
+			include ('/header.php');
+			include ('/db_connection.php');
 			
 			echo "<style>";
 			echo "table, th, td {";
@@ -78,7 +78,7 @@
 			mysqli_close($con);
 			include ('includes/footer.php');
 			?>
-		</body>
+</body>
 
 
-	</html>
+</html>

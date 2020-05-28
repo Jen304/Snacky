@@ -1,0 +1,25 @@
+body,
+html {
+    height: 100%;
+}
+
+form {
+    margin: auto;
+}
+
+.container-fluid{
+    padding:5%;
+}
+
+.label-size{
+    font-size: 1.4rem;
+}
+
+@media (max-width: 575px){
+    .label-center{
+        text-align: center;
+    }
+    .test{
+        margin:auto;
+    }
+}

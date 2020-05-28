@@ -16,7 +16,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 CREATE TABLE administrator(
 	admin_id INT AUTO_INCREMENT,
     admin_name VARCHAR(15) NOT NULL UNIQUE,
-    admin_password VARCHAR(50) NOT NULL,
+    admin_password VARCHAR(150) NOT NULL,
     PRIMARY KEY (admin_id)
 );
 
@@ -26,7 +26,7 @@ DESC administrator;
 -- Image Table --
 CREATE TABLE image(
 	image_id INT AUTO_INCREMENT,
-    image_path VARCHAR(255) NOT NULL,
+  
     image_name VARCHAR(255) NOT NULL,
     PRIMARY KEY (image_id)
 );
