@@ -14,18 +14,90 @@ include('../header.php');
     <?php
     include('db_connection.php');
     error_reporting(E_ALL & ~E_NOTICE); 
-    //Getting Product Name
-    $product_name = $_POST['product_name'];
+    // get value
+         //Getting Product Name
+         $product_name = $_POST['product_name'];
     //Getting Product Description
-    $product_description = $_POST['description'];
+        $product_description = $_POST['description'];
     //Getting Product Price
-    $product_price = $_POST['price'];
-    //Getting file name
-    $file_name = $_FILES['file']['name'];
-
+        $product_price = $_POST['price'];
+        // Getting file name
+        $file_name = $_FILES['image']['name'];
+        // Get category list
+        $category_list = $_POST['category'];
+    
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        try{   
+        // Getting category id
+        $category_list = $_POST['category'];
+            // validate input
+            if((trim($product_name) === "") && trim($product_description) === "" ){
+                $error = 'All fields must be filled.';
+                throw new Exception($error);
+            }
+            // validate category
+            if(empty($category_list)){
+                $error = 'Please choose at least one category.';
+                throw new Exception($error);
+            }
+            // validate image
+            if(empty($_FILES['image'])){
+                $error = 'Please upload an image';
+                throw new Exception($error);
+            }
+            // validate duplicate product name
+            $duplicate = False;
+            $select_product_name = "SELECT product_name FROM product;";
+            $select_result = mysqli_query($dbc, $select_product_name);
+            while(($row = mysqli_fetch_array($select_result)) && !$duplicate){
+                if(strtoupper($row['product_name']) === strtoupper($product_name)){
+                    $duplicate = True;
+                }
+            }
+            if($duplicate){
+                $error = "Duplicated Product not allowed";
+                throw new Exception($error);
+            }
+            // save image
+            upload_image($file_name);
+             //-------Inserting data to image table------------
+             $insert_image = "INSERT INTO image (image_name)
+                                VALUES('$file_name');";
+             mysqli_query($dbc, $insert_image);
+             //Getting image id of inserted image
+             $image_id = mysqli_insert_id($dbc);
+             //-------Inserting product data to Product table-----------
+             $insert_product = "INSERT INTO product (product_name, product_desc, image_id, unit_price)
+                                             VALUES('$product_name', '$product_description', $image_id , $product_price);";
+             
+             mysqli_query($dbc, $insert_product);
+             echo "<script> alert('Product was inserted.'); </script>"; 
+             // save product category
+             //Getting product id of inserted product
+             $product_id = mysqli_insert_id($dbc);
+             //-------Insert data into Product Category table-------              
+                     $Num = count($category_list);
+                     for($i = 0; $i < $Num; $i++){
+                         //echo "product_id ". $product_id;
+                          $insert_category = "INSERT INTO product_category VALUES ($product_id, $category_list[$i]);";
+                          mysqli_query($dbc, $insert_category);
+                          $count = $i + 1;
+                          echo "<script> alert('Category $count has been saved'); </script>";
+                     }
+            mysqli_close($dbc);	
+            unset($dbc);
+            
+            
+        }catch (Exception $e) {
+            //echo 'Caught exception: ',  $e->getMessage(), "\n";
+            echo "<script> alert('{$e->getMessage()}'); </script>";
+        }
+    }
+    
+    /*
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //Check if all input fields are filled
-        if(!(trim($product_name) === "") && !(trim($product_description) === "")){
+        if(!(trim($product_name) === "") && !(trim($product_description) === "" && !empty($category_list))){
             $duplicate = False;
             //Select product Name to check duplication
             $select_product_name = "SELECT product_name FROM product;";
@@ -70,28 +142,20 @@ include('../header.php');
                                 //Getting product id of inserted product
                                 $product_id = mysqli_insert_id($dbc);
                                 //-------Insert data into Product Category table-------
-                                //If chocolate is checked
-                                $category_list = $_POST['category'];
-                               
+                                                            
                                     if(!empty($category_list)){                                   
-                                        echo "Has some";
                                         $Num = count($category_list);
                                         for($i = 0; $i < $Num; $i++){
                                             echo "product_id ". $product_id;
                                              $insert_category = "INSERT INTO product_category VALUES ($product_id, $category_list[$i]);";
                                              mysqli_query($dbc, $insert_category);
-                                            
-                                           
-    
                                         }
                                         
                                     }else{
-                                        echo "nothing";
+                                        echo "<script> alert('Please choose at least one category')</script>";
                                     }
                                
-                                
                                 mysqli_close($dbc);	
-                                
                                 echo "<script> alert('Product was inserted.'); </script>"; 
                                 unset($dbc);   
                             }
@@ -107,26 +171,21 @@ include('../header.php');
             //echo 'All fields must be filled';
             echo "<script> alert('All fields must be filled'); </script>";
         }
-    }  
+    }  */
 
     function upload_image($file_name){
-        if(is_uploaded_file($_FILES['file']['tmp_name'])){
+        
+            if(!is_uploaded_file($_FILES['image']['tmp_name'])){
+                echo "<script> alert('Image has been uploaded'); </script>"; 
+            }
             $destination = '../images/products/' . $file_name;
-            
-            if(move_uploaded_file($_FILES['file']['tmp_name'], $destination)){
-                echo "<script> alert('Image has been uploaded'); </script>";
-                return True;
-            }
-            else{
-                echo "<script> alert('An error ocuured'); </script>";
-                return False;
-            }
+            if(move_uploaded_file($_FILES['image']['tmp_name'], $destination)){
+                echo "<script> alert('Image has been uploaded'); </script>"; 
+
+            }else{
+                throw new Exception('Image has not been uploaded');
+            }             
         }
-        else{
-            echo "<script> alert('Image has not been uploaded'); </script>";
-            return False;
-        }
-    }
 ?>
     <!------------------------------------- PHP end ------------------------------------>
 
@@ -136,7 +195,7 @@ include('../header.php');
     <!--#########################-->
     <div class="container-fluid h-100">
         <div class="row h-100  ">
-            <form class="col-12" action="index.php" method="POST" enctype="multipart/form-data">
+            <form class="col-12" action="index.php" method="POST" enctype="multipart/form-data" id="product_form">
                 <!---------------- Header --------------->
                 <h2 class="pb-4">Add Product</h2>
                 <!---------------- Product Name --------------->
@@ -197,7 +256,7 @@ include('../header.php');
             <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
             <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
                 <label class="btn btn-secondary" style="display: inline-block" id="image">
-                    Upload Image <input class="form-control-file" type="file" id="file" name="file" hidden required>
+                    Upload Image <input class="form-control-file" type="file" id="file" name="image" hidden>
                 </label>
             </div>
             <div class="col-lg-5">
@@ -237,6 +296,14 @@ include('../header.php');
             fileInputLabel.innerHTML = "No image is chosen";
         }
     });
+    const productForm = document.getElementById("product_form");
+    // validate image
+    productForm.addEventListener("submit", function(e) {
+        if (!fileInput.value) {
+            alert('Must upload image');
+            e.preventDefault()
+        }
+    })
     </script>
     <!------------------------------------- JavaScript end ------------------------------------>
 

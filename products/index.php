@@ -6,8 +6,6 @@
 </head>
 
 <body>
-
-
     <?php
         include('../db_connection.php');
         $categories_query = "SELECT * FROM category
@@ -36,7 +34,7 @@
         $prod = "SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
         FROM product p, image i
         WHERE p.image_id = i.image_id and
-        p.product_id in (select product_id from product_category where category_id = 1)
+        p.product_id in (select product_id from product_category where category_id = $category_id)
         ORDER BY p.product_id;";
     }else{
         $prod = "SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
