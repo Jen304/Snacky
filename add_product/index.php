@@ -16,7 +16,7 @@ include('../header.php');
     error_reporting(E_ALL & ~E_NOTICE); 
     // get value
          //Getting Product Name
-         $product_name = $_POST['product_name'];
+        $product_name = $_POST['product_name'];
     //Getting Product Description
         $product_description = $_POST['description'];
     //Getting Product Price
@@ -94,84 +94,7 @@ include('../header.php');
         }
     }
     
-    /*
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        //Check if all input fields are filled
-        if(!(trim($product_name) === "") && !(trim($product_description) === "" && !empty($category_list))){
-            $duplicate = False;
-            //Select product Name to check duplication
-            $select_product_name = "SELECT product_name FROM product;";
-            $select_result = mysqli_query($dbc, $select_product_name);
-            if(!$select_result){
-                echo "<script> alert('An error occured'); </script>";
-            }
-            else{
-                //check if there is a duplication
-                while(($row = mysqli_fetch_array($select_result)) && !$duplicate){
-                    if(strtoupper($row['product_name']) === strtoupper($product_name)){
-                        $duplicate = True;
-                    }
-                }
-                if($duplicate){
-                    echo "<script> alert('Duplicated Product not allowed'); </script>";
-                }
-                else{
-                    if(upload_image($file_name)){
-                        //-------Inserting data to image table------------
-                        $insert_image = "INSERT INTO image (image_name)
-                        VALUES(' $file_name ');";
-                        //if Image was not inserted
-                        if(!mysqli_query($dbc, $insert_image)){
-                            //echo 'Image could not be inserted';
-                            echo '<script> alert("An error occured(Image Insertion)."); </script>';
-                        }
-                        else{
-                            //echo 'Image was inserted. <br>';
-                            //Getting image id of inserted image
-                            $image_id = mysqli_insert_id($dbc);
-                            //-------Inserting product data to Product table-----------
-                            $insert_product = "INSERT INTO product (product_name, product_desc, image_id, unit_price)
-                                                            VALUES('$product_name', '$product_description', $image_id , $product_price);";
-                            
-                            //if product is not inserted
-                            if(!mysqli_query($dbc, $insert_product)){
-                                echo '<script> alert("An error occured(Product Insertion)."); </script>';
-                            }
-                            else{
-                                //echo 'Product was inserted. <br>';
-                                //Getting product id of inserted product
-                                $product_id = mysqli_insert_id($dbc);
-                                //-------Insert data into Product Category table-------
-                                                            
-                                    if(!empty($category_list)){                                   
-                                        $Num = count($category_list);
-                                        for($i = 0; $i < $Num; $i++){
-                                            echo "product_id ". $product_id;
-                                             $insert_category = "INSERT INTO product_category VALUES ($product_id, $category_list[$i]);";
-                                             mysqli_query($dbc, $insert_category);
-                                        }
-                                        
-                                    }else{
-                                        echo "<script> alert('Please choose at least one category')</script>";
-                                    }
-                               
-                                mysqli_close($dbc);	
-                                echo "<script> alert('Product was inserted.'); </script>"; 
-                                unset($dbc);   
-                            }
-                        }
-                    }
-                    else{
-                        echo "<script> alert('An error occured'); </script>";
-                    }
-                }
-            }         
-        }
-        else{
-            //echo 'All fields must be filled';
-            echo "<script> alert('All fields must be filled'); </script>";
-        }
-    }  */
+   
 
     function upload_image($file_name){
         
@@ -212,7 +135,7 @@ include('../header.php');
                     <label for="description"
                         class="col-lg-3 col-md-3 col-sm-4 col-12 col-form-label label-size label-center">Description</label>
                     <div class="col-lg-6 col-md-7 col-sm-7 col-1,,2">
-                        <textarea type="text" name="description" id="description" class="form-control" maxlength="150"
+                        <textarea type="text" name="description" id="description" class="form-control" maxlength="255"
                             required></textarea>
                     </div>
                 </div>
@@ -288,6 +211,8 @@ include('../header.php');
     <script>
     const fileInput = document.getElementById("file");
     const fileInputLabel = document.getElementById("file-selected-text");
+    const productName = document.getElementById("product_name");
+    const description = document.getElementById("description");
 
     fileInput.addEventListener("change", function() {
         if (fileInput.value) {
@@ -299,10 +224,18 @@ include('../header.php');
     const productForm = document.getElementById("product_form");
     // validate image
     productForm.addEventListener("submit", function(e) {
+
         if (!fileInput.value) {
             alert('Must upload image');
             e.preventDefault()
         }
+        const specialLetters = /[$%]/;
+        if (productName.value.match(specialLetters) || description.value.match(specialLetters)) {
+            alert('Invalid text format. Does not accept $ or %');
+            e.preventDefault();
+
+        }
+
     })
     </script>
     <!------------------------------------- JavaScript end ------------------------------------>

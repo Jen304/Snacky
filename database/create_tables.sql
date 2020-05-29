@@ -26,7 +26,6 @@ DESC administrator;
 -- Image Table --
 CREATE TABLE image(
 	image_id INT AUTO_INCREMENT,
-  
     image_name VARCHAR(255) NOT NULL,
     PRIMARY KEY (image_id)
 );
@@ -48,7 +47,7 @@ DESC category;
 CREATE TABLE product(
 	product_id INT AUTO_INCREMENT,
     product_name VARCHAR(20) NOT NULL UNIQUE,
-    product_desc VARCHAR(50) NOT NULL,
+    product_desc VARCHAR(255) NOT NULL,
     image_id INT NOT NULL,
     unit_price FLOAT(5,2) NOT NULL,
     PRIMARY KEY (product_id),
