@@ -155,7 +155,7 @@ include('../header.php');
                 <!---------------- Category ---------------
                     > Fetch the category name from the server
                     That makes sure that the category list will be dynamic                
-                >
+                -->
                 <?php
                     include('../db_connection.php');
                     $categories_query = "SELECT * FROM category
@@ -171,12 +171,11 @@ include('../header.php');
                         <?php
                     while($category = mysqli_fetch_array($categories, MYSQLI_ASSOC)){
                        
-                        echo "<div class=\"form-check\">";
-                        
+                        echo "<div class=\"form-check\">";                        
                         echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"category[]\" value=\"{$category["category_id"]}\"/>";
                         echo "<lable class=\"form-check-label\" for=\"category\">{$category["category_name"]}</lable>";
                         echo "</div>";
-                        ;
+                        
                     }
                     ?>
                     </div>
@@ -185,30 +184,30 @@ include('../header.php');
 
 
         <!---------------- Image Upload --------------->
-                <div class="form-group row mb-5">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
-                        <label class="btn btn-secondary" style="display: inline-block" id="image">
-                            Upload Image <input class="form-control-file" type="file" id="file" name="image" hidden>
-                        </label>
-                    </div>
-                    <div class="col-lg-5">
-                        <span id="file-selected-text">No image is chosen</span>
-                    </div>
-                </div>
-                <!---------------- Buttons --------------->
-                <div class="form-group row justify-content-center">
-                    <!---------------- Clear Button --------------->
-                    <div class="col-2">
-                        <button type="reset" class="btn btn-primary">Clear</button>
-                    </div>
-                    <!---------------- Submit Button --------------->
-                    <div class="col-2">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </form>
+        <div class="form-group row mb-5">
+            <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
+                <label class="btn btn-secondary" style="display: inline-block" id="image">
+                    Upload Image <input class="form-control-file" type="file" id="file" name="image" hidden>
+                </label>
+            </div>
+            <div class="col-lg-5">
+                <span id="file-selected-text">No image is chosen</span>
+            </div>
         </div>
+        <!---------------- Buttons --------------->
+        <div class="form-group row justify-content-center">
+            <!---------------- Clear Button --------------->
+            <div class="col-2">
+                <button type="reset" class="btn btn-primary">Clear</button>
+            </div>
+            <!---------------- Submit Button --------------->
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        </form>
+    </div>
     </div>
     <!------------------------------------- HTML end ------------------------------------>
 
