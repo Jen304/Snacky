@@ -1,7 +1,9 @@
 <?php
+// create one header and include it every file -> reuse code
 include('../header.php');
 ?>
 <title>Add product | Snacky</title>
+<!-- create seperate css file and include it, we can resuse it if applicable -->
 <link rel="stylesheet" href="../css/add_product.css">
 </head>
 
@@ -11,14 +13,15 @@ include('../header.php');
     <!--       PHP CODE          -->
     <!--#########################-->
     <?php
+    // write one db_connection file so we can reuse it by include it
     include('db_connection.php');
     error_reporting(E_ALL & ~E_NOTICE); 
-    // get value
+        // get value
          //Getting Product Name
         $product_name = $_POST['product_name'];
-    //Getting Product Description
+        //Getting Product Description
         $product_description = $_POST['description'];
-    //Getting Product Price
+        //Getting Product Price
         $product_price = $_POST['price'];
         // Getting file name
         $file_name = $_FILES['image']['name'];
@@ -26,9 +29,11 @@ include('../header.php');
         $category_list = $_POST['category'];
     
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        // should use try...catch because it is more readable and if error happends in the code,
+        // the code will not go to the following code -> eaiser to manage work flow of code
         try{   
-        // Getting category id
-        $category_list = $_POST['category'];
+            // Getting category id
+            $category_list = $_POST['category'];
             // validate input
             if((trim($product_name) === "") && trim($product_description) === "" ){
                 $error = 'All fields must be filled.';
@@ -84,6 +89,7 @@ include('../header.php');
                           echo "<script> alert('Category $count has been saved'); </script>";
                      }
             mysqli_close($dbc);	
+            // re-connect with the database after POST request
             unset($dbc);
             
             
@@ -94,9 +100,8 @@ include('../header.php');
     }
     
    
-
-    function upload_image($file_name){
-        
+    
+    function upload_image($file_name){        
             if(!is_uploaded_file($_FILES['image']['tmp_name'])){
                 echo "<script> alert('Image has been uploaded'); </script>"; 
             }
@@ -147,7 +152,10 @@ include('../header.php');
                             max="999.99" required>
                     </div>
                 </div>
-                <!---------------- Category --------------->
+                <!---------------- Category ---------------
+                    > Fetch the category name from the server
+                    That makes sure that the category list will be dynamic                
+                >
                 <?php
                     include('../db_connection.php');
                     $categories_query = "SELECT * FROM category
@@ -155,49 +163,52 @@ include('../header.php');
 
                     $categories = mysqli_query($dbc, $categories_query);
                     ?>
+
                 <div class="form-group row mb-5">
                     <div class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center">Category</div>
+                    <div class="col-lg-3 col-md-2 col-sm-4 col-12">
 
-                    <?php
+                        <?php
                     while($category = mysqli_fetch_array($categories, MYSQLI_ASSOC)){
-                        echo " <div class=\"col-lg-3 col-md-2 col-sm-4 col-12\">";
+                       
                         echo "<div class=\"form-check\">";
                         
                         echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"category[]\" value=\"{$category["category_id"]}\"/>";
                         echo "<lable class=\"form-check-label\" for=\"category\">{$category["category_name"]}</lable>";
                         echo "</div>";
-                        echo "</div>";
+                        ;
                     }
                     ?>
+                    </div>
                 </div>
         </div>
 
 
         <!---------------- Image Upload --------------->
-        <div class="form-group row mb-5">
-            <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
-            <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
-                <label class="btn btn-secondary" style="display: inline-block" id="image">
-                    Upload Image <input class="form-control-file" type="file" id="file" name="image" hidden>
-                </label>
-            </div>
-            <div class="col-lg-5">
-                <span id="file-selected-text">No image is chosen</span>
-            </div>
+                <div class="form-group row mb-5">
+                    <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
+                    <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
+                        <label class="btn btn-secondary" style="display: inline-block" id="image">
+                            Upload Image <input class="form-control-file" type="file" id="file" name="image" hidden>
+                        </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <span id="file-selected-text">No image is chosen</span>
+                    </div>
+                </div>
+                <!---------------- Buttons --------------->
+                <div class="form-group row justify-content-center">
+                    <!---------------- Clear Button --------------->
+                    <div class="col-2">
+                        <button type="reset" class="btn btn-primary">Clear</button>
+                    </div>
+                    <!---------------- Submit Button --------------->
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <!---------------- Buttons --------------->
-        <div class="form-group row justify-content-center">
-            <!---------------- Clear Button --------------->
-            <div class="col-2">
-                <button type="reset" class="btn btn-primary">Clear</button>
-            </div>
-            <!---------------- Submit Button --------------->
-            <div class="col-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-        </form>
-    </div>
     </div>
     <!------------------------------------- HTML end ------------------------------------>
 
@@ -223,14 +234,17 @@ include('../header.php');
     const productForm = document.getElementById("product_form");
     // validate image
     productForm.addEventListener("submit", function(e) {
-
+        // check the image input
         if (!fileInput.value) {
             alert('Must upload image');
+            // prevent sending request to server
             e.preventDefault()
         }
+        // check the input has some special character or not
         const specialLetters = /[$%]/;
         if (productName.value.match(specialLetters) || description.value.match(specialLetters)) {
             alert('Invalid text format. Does not accept $ or %');
+            // prevent sending request to server
             e.preventDefault();
 
         }

@@ -1,12 +1,15 @@
 <?php
+    // create one header and include it every file -> reuse code
     include ('../header.php');
  ?>
 <title>Products | Snacky</title>
+<!-- create seperate css file and include it, we can resuse it if applicable -->
 <link rel="stylesheet" href="../css/products.css">
 </head>
 
 <body>
     <?php
+    // write one db_connection file so we can reuse it by include it
         include('../db_connection.php');
         try{
             $categories_query = "SELECT * FROM category
