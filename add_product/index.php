@@ -1,6 +1,5 @@
 <?php
 include('../header.php');
-
 ?>
 <title>Add product | Snacky</title>
 <link rel="stylesheet" href="../css/add_product.css">

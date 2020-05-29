@@ -8,10 +8,15 @@
 <body>
     <?php
         include('../db_connection.php');
-        $categories_query = "SELECT * FROM category
-                            ORDER BY category_id";
+        try{
+            $categories_query = "SELECT * FROM category
+            ORDER BY category_id";
 
-        $categories = mysqli_query($dbc, $categories_query);
+            $categories = mysqli_query($dbc, $categories_query);
+        }catch(Exception $e){
+            echo "<script> alert('{$e->getMessage()}'); </script>";
+
+        }
     ?>
     <form name="searchproduct" action="index.php" method="get">
         <select name="category">
@@ -30,17 +35,21 @@
     
     echo 'Hello ' . $_GET["category"] . '!';
     $category_id = (int)$_GET["category"];
-    if($category_id > 0){
-        $prod = "SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
-        FROM product p, image i
-        WHERE p.image_id = i.image_id and
-        p.product_id in (select product_id from product_category where category_id = $category_id)
-        ORDER BY p.product_id;";
-    }else{
-        $prod = "SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
-        FROM product p, image i
-        WHERE p.image_id = i.image_id
-        ORDER BY p.product_id;";
+    try{
+        if($category_id > 0){
+            $prod = "SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
+            FROM product p, image i
+            WHERE p.image_id = i.image_id and
+            p.product_id in (select product_id from product_category where category_id = $category_id)
+            ORDER BY p.product_id;";
+        }else{
+            $prod = "SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
+            FROM product p, image i
+            WHERE p.image_id = i.image_id
+            ORDER BY p.product_id;";
+        }
+    }catch(Excepton $e){
+        echo "<script> alert('{$e->getMessage()}'); </script>";
     }
     // display products  
 
@@ -85,6 +94,6 @@
         echo "
     </table>";
 
-    mysqli_close($con);
+    mysqli_close($dbc);
     include ('../footer.php');
     ?>
