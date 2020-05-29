@@ -26,7 +26,6 @@ DESC administrator;
 -- Image Table --
 CREATE TABLE image(
 	image_id INT AUTO_INCREMENT,
-    image_path VARCHAR(255) NOT NULL,
     image_name VARCHAR(255) NOT NULL,
     PRIMARY KEY (image_id)
 );

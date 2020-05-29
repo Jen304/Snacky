@@ -32,8 +32,6 @@
 
     <?php
     include('../db_connection.php');
-    
-    echo 'Hello ' . $_GET["category"] . '!';
     $category_id = (int)$_GET["category"];
     try{
         if($category_id > 0){

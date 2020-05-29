@@ -62,6 +62,7 @@ INSERT INTO category (category_name)
                
 SELECT *
 FROM category;
+select * from product;
 
 -- Insert data into Product Table --
 INSERT INTO product (product_name, product_desc, image_id,unit_price)
@@ -98,17 +99,17 @@ SELECT *
 FROM product;
 
 -- Insert data into Product Category --
-INSERT INTO product_category VALUES (1, 1); -- Add chocolate to Sweet Category
+INSERT INTO product_category VALUES (1, 4); -- Add chocolate to Sweet Category
 
 INSERT INTO product_category VALUES (1, 3); -- Add chocolate to Hign Calories Category
 
-INSERT INTO product_category VALUES (2, 2); -- Add chips to Salty Category
+INSERT INTO product_category VALUES (2, 5); -- Add chips to Salty Category
 
 INSERT INTO product_category VALUES (3, 1); -- Add cake to Sweet Category
 
 INSERT INTO product_category VALUES (3, 3); -- Add chocolate to Hign Calories Category
 
-INSERT INTO product_category VALUES (4, 4); -- Add dark chocolate to Low Carories Category
+INSERT INTO product_category VALUES (4, 1); -- Add dark chocolate to Low Carories Category
 
 INSERT INTO product_category VALUES (5, 4); -- Add dry fruits to Low Calories Category
 
