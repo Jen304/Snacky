@@ -1,6 +1,5 @@
 <?php
-// create one header and include it every file -> reuse code
-include('../header.php');
+include('../includes/header.php');
 ?>
 <title>Add product | Snacky</title>
 <!-- create seperate css file and include it, we can resuse it if applicable -->
@@ -13,8 +12,7 @@ include('../header.php');
     <!--       PHP CODE          -->
     <!--#########################-->
     <?php
-    // write one db_connection file so we can reuse it by include it
-    include('db_connection.php');
+    include('../includes/db_connection.php');
     error_reporting(E_ALL & ~E_NOTICE); 
         // get value
          //Getting Product Name
@@ -157,7 +155,7 @@ include('../header.php');
                     That makes sure that the category list will be dynamic                
                 -->
                 <?php
-                    include('../db_connection.php');
+                    include('../includes/db_connection.php');
                     $categories_query = "SELECT * FROM category
                                     ORDER BY category_id";
 
@@ -253,5 +251,5 @@ include('../header.php');
     <!------------------------------------- JavaScript end ------------------------------------>
 
     <?php
-include ('../footer.php');
+include ('../includes/footer.php');
 ?>
