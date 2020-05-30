@@ -18,15 +18,15 @@ include('../header.php');
     error_reporting(E_ALL & ~E_NOTICE); 
         // get value
          //Getting Product Name
-        $product_name = $_POST['product_name'];
-        //Getting Product Description
-        $product_description = $_POST['description'];
-        //Getting Product Price
-        $product_price = $_POST['price'];
+        $product_name = mysqli_real_escape_string($dbc,trim(strip_tags($_POST['product_name'])));
+    //Getting Product Description
+        $product_description = mysqli_real_escape_string($dbc,trim(strip_tags($_POST['description'])));
+    //Getting Product Price
+        $product_price =  mysqli_real_escape_string($dbc,trim(strip_tags($_POST['price'])));
         // Getting file name
-        $file_name = $_FILES['image']['name'];
+        $file_name =  mysqli_real_escape_string($dbc,trim(strip_tags($_FILES['image']['name']))); 
         // Get category list
-        $category_list = $_POST['category'];
+        $category_list =  $_POST['category'];
     
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         // should use try...catch because it is more readable and if error happends in the code,
@@ -35,7 +35,7 @@ include('../header.php');
             // Getting category id
             $category_list = $_POST['category'];
             // validate input
-            if((trim($product_name) === "") && trim($product_description) === "" ){
+            if(($product_name === "") || $product_description === "" ){
                 $error = 'All fields must be filled.';
                 throw new Exception($error);
             }
@@ -83,7 +83,7 @@ include('../header.php');
                      $Num = count($category_list);
                      for($i = 0; $i < $Num; $i++){
                          //echo "product_id ". $product_id;
-                          $insert_category = "INSERT INTO product_category VALUES ($product_id, $category_list[$i]);";
+                          $insert_category = mysqli_real_escape_string($dbc,strip_tags("INSERT INTO product_category VALUES ($product_id, $category_list[$i]);"));
                           mysqli_query($dbc, $insert_category);
                           $count = $i + 1;
                           echo "<script> alert('Category $count has been saved'); </script>";
