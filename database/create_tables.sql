@@ -16,7 +16,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 CREATE TABLE administrator(
 	admin_id INT AUTO_INCREMENT,
     admin_name VARCHAR(15) NOT NULL UNIQUE,
-    admin_password VARCHAR(150) NOT NULL,
+    admin_password VARCHAR(50) NOT NULL,
     PRIMARY KEY (admin_id)
 );
 
@@ -46,7 +46,7 @@ DESC category;
 
 CREATE TABLE product(
 	product_id INT AUTO_INCREMENT,
-    product_name VARCHAR(20) NOT NULL UNIQUE,
+    product_name VARCHAR(40) NOT NULL UNIQUE,
     product_desc VARCHAR(255) NOT NULL,
     image_id INT NOT NULL,
     unit_price FLOAT(5,2) NOT NULL,
