@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('includes/header.php');
 ?>
 <title>Snacky</title>
 <!-- embed css file from local repo -->
@@ -42,5 +42,5 @@ include('header.php');
     </div>
 
     <?php
-include('footer.php');
+include('includes/footer.php');
 ?>

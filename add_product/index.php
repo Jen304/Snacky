@@ -1,5 +1,5 @@
 <?php
-include('../header.php');
+include('../includes/header.php');
 ?>
 <title>Add product | Snacky</title>
 <link rel="stylesheet" href="../css/add_product.css">
@@ -11,7 +11,7 @@ include('../header.php');
     <!--       PHP CODE          -->
     <!--#########################-->
     <?php
-    include('db_connection.php');
+    include('../includes/db_connection.php');
     error_reporting(E_ALL & ~E_NOTICE); 
     // get value
          //Getting Product Name
@@ -149,7 +149,7 @@ include('../header.php');
                 </div>
                 <!---------------- Category --------------->
                 <?php
-                    include('../db_connection.php');
+                    include('../includes/db_connection.php');
                     $categories_query = "SELECT * FROM category
                                     ORDER BY category_id";
 
@@ -240,5 +240,5 @@ include('../header.php');
     <!------------------------------------- JavaScript end ------------------------------------>
 
     <?php
-include ('../footer.php');
+include ('../includes/footer.php');
 ?>

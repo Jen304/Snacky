@@ -1,5 +1,5 @@
 <?php
-    include ('../header.php');
+    include ('../includes/header.php');
  ?>
 <title>Products | Snacky</title>
 <link rel="stylesheet" href="../css/products.css">
@@ -7,7 +7,7 @@
 
 <body>
     <?php
-        include('../db_connection.php');
+        include('../includes/db_connection.php');
         try{
             $categories_query = "SELECT * FROM category
             ORDER BY category_id";
@@ -31,7 +31,7 @@
     </form>
 
     <?php
-    include('../db_connection.php');
+    include('../includes/db_connection.php');
     $category_id = (int)$_GET["category"];
     try{
         if($category_id > 0){
@@ -93,5 +93,5 @@
     </table>";
 
     mysqli_close($dbc);
-    include ('../footer.php');
+    include ('../includes/footer.php');
     ?>
