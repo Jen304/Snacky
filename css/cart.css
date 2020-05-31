@@ -1,0 +1,8 @@
+
+.quantity{
+    max-width: 45px !important;    
+}
+.edit{
+    margin-top: 10px;
+    display: none;
+}
