@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             
             if(mysqli_num_rows($result) != 1){
-                throw new Exception('Email and Password do not match');
+                throw new Exception('Name and Password do not match');
             }
 		
 			$_SESSION['admin_name'] = $admin_name;
