@@ -2,7 +2,7 @@
     include('../includes/header.php');
 ?>
 <title>Your cart | Snacky</title>
-<!-- embed css file from local repo -->
+<!-- embed css file -->
 <link rel="stylesheet" href="../css/cart.css">
 </head>
 
@@ -35,7 +35,6 @@
                     <!-- Quantity -->
                     <td>
                         <form action="edit_quantity.php" method="post">
-                            <input hidden name="user_id" value="user_id">
                             <input hidden name="product_id" value="product_id">
                             <input type="number" min="1" class="quantity" name="quantity">
                             <div class="edit">
@@ -69,20 +68,19 @@
             <tfoot>
                 <tr>
                     <th scope="col" colspan="4" class="text-right">Subtotal
-
-
                     </th>
-
                 </tr>
                 <tr>
                     <td colspan="5">
-                        <button type="button" class="btn btn-warning float-right" id="checkoutButton">Checkout</button>
+                        <form action="check_user.php">
+                            <input type="submit" class="btn btn-warning float-right" id="checkoutButton"
+                                value="Checkout"></form>
                     </td>
                 </tr>
 
             </tfoot>
         </table>
-        <div id="checkout" class="d-flex justify-content-end">
+        <div id=" checkout" class="d-flex justify-content-end">
 
         </div>
         <script>
@@ -95,19 +93,14 @@
 
         });
 
-
-
         // add cancel function
         $('.cancel').click(function(e) {
-
             // set the value in input back to origin
             const quantityInput = $(e.target).parent().prev();
             quantityInput.val(originQuantity);
             // hide edit save and cancel button
             const container = $(e.target).parent()
             container.css("display", "none");
-
-
         })
         </script>
 

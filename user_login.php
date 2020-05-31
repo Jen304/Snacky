@@ -6,11 +6,11 @@ include('includes/header.php');
 </head>
 
 <body>
-<!--#########################-->
-<!--          PHP            -->
-<!--#########################-->
+    <!--#########################-->
+    <!--          PHP            -->
+    <!--#########################-->
 
-<?php
+    <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         include('includes/db_connection.php');
         //Get User Inputs
@@ -47,33 +47,35 @@ include('includes/header.php');
 ?>
 
 
-<!--#########################-->
-<!--          HTML           -->
-<!--#########################-->
+    <!--#########################-->
+    <!--          HTML           -->
+    <!--#########################-->
 
-<div class="container-fluid">
-    <div class="row login-form">
-        <!-- Login form header -->
-        <h2 class="col-12 "> Login </h2>
-        <!-- Login form -->
-        <form class="col-12" action="user_login.php" method="POST">
-            <!-- User Name ( Email Adress ) -->
-            <div class="form-group col-6 offset-3">
-                    <input class="form-control" name="user_name" type="email" placeholder="Enter Email Adress...." required>
-            </div>
-            <!-- User Password -->
-            <div class="form-group col-6 offset-3">
-                    <input class="form-control" name="password" type="password" placeholder="Enter Password...." required>
-            </div>
-            <!-- Login Button -->
-            <div class="form-group col-6 offset-3">
+    <div class="container-fluid">
+        <div class="row login-form">
+            <!-- Login form header -->
+            <h2 class="col-12 "> Login </h2>
+            <!-- Login form -->
+            <form class="col-12" action="user_login.php" method="POST">
+                <!-- User Name ( Email Adress ) -->
+                <div class="form-group col-6 offset-3">
+                    <input class="form-control" name="user_name" type="email" placeholder="Enter Email Adress...."
+                        required>
+                </div>
+                <!-- User Password -->
+                <div class="form-group col-6 offset-3">
+                    <input class="form-control" name="password" type="password" placeholder="Enter Password...."
+                        required>
+                </div>
+                <!-- Login Button -->
+                <div class="form-group col-6 offset-3">
                     <button class="form-control btn btn-primary" type="submit">LOGIN</button>
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
 
-<?php
+    <?php
 include ('includes/footer.php');
 ?>
