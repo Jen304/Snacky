@@ -144,59 +144,64 @@ FROM product_category;
 -- Insert data into Customer Table --
 -- All columns are filled --
 INSERT INTO customer (customer_name, customer_password, street, city, province, country, postal_code, email, phone)
-			VALUES('Martin Pearson', SHA1('pearson1234'), '32 View Street','Victoria', 'BC', 'Canada', 'V7H3G6', 'martin@gmail.com','7783426364');
+			VALUES('Test One', SHA1('test'), '32 Test Street','Victoria', 'BC', 'Canada', 'V7H3G6', 'test@gmail.com','7783426364');
             
--- Phone column is NULL --
-INSERT INTO customer (customer_name, customer_password, street, city, province, country, postal_code, email)
-			  VALUES ('George Bismalk', SHA1('bis1234'), '45 York Ave', 'New York', 'NY', 'US', '8S9I6J', 'bismalk@yahoo.com');
+-- -- Phone column is NULL --
+-- INSERT INTO customer (customer_name, customer_password, street, city, province, country, postal_code, email)
+-- 			  VALUES ('George Bismalk', SHA1('bis1234'), '45 York Ave', 'New York', 'NY', 'US', '8S9I6J', 'bismalk@yahoo.com');
  
 SELECT *
 FROM customer;
 
--- Insert data into Cart Item Table --
-INSERT INTO cart_item VALUES (1, 3, 3); -- Customer 1 adds Cake to the cart
 
-INSERT INTO cart_item VALUES (1, 1, 1); -- Customer 1 adds Chocolate to the cart
+/*
+	Uncomment the code below when using
+*/
 
-INSERT INTO cart_item VALUES (1, 5, 2); -- Customer 1 adds Dry Fruits to the cart
+-- -- Insert data into Cart Item Table --
+-- INSERT INTO cart_item VALUES (1, 3, 3); -- Customer 1 adds Cake to the cart
 
-INSERT INTO cart_item VALUES (2, 1, 5); -- Customer 2 adds Chocolate to the cart
+-- INSERT INTO cart_item VALUES (1, 1, 1); -- Customer 1 adds Chocolate to the cart
 
-INSERT INTO cart_item VALUES (2, 2, 3); -- Customer 2 adds Chocolate to the cart
+-- INSERT INTO cart_item VALUES (1, 5, 2); -- Customer 1 adds Dry Fruits to the cart
 
-INSERT INTO cart_item VALUES (2, 3, 9); -- Customer 2 adds Cake to the cart
+-- INSERT INTO cart_item VALUES (2, 1, 5); -- Customer 2 adds Chocolate to the cart
 
-INSERT INTO cart_item VALUES (2, 4, 3); -- Customer 2 adds Dark Chocolate to the cart
+-- INSERT INTO cart_item VALUES (2, 2, 3); -- Customer 2 adds Chocolate to the cart
+
+-- INSERT INTO cart_item VALUES (2, 3, 9); -- Customer 2 adds Cake to the cart
+
+-- INSERT INTO cart_item VALUES (2, 4, 3); -- Customer 2 adds Dark Chocolate to the cart
 
 
-SELECT *
-FROM cart_item;
+-- SELECT *
+-- FROM cart_item;
 
--- Insert data into Customer Order Table --
-INSERT INTO customer_order (customer_id)
-					VALUES (1);
+-- -- Insert data into Customer Order Table --
+-- INSERT INTO customer_order (customer_id)
+-- 					VALUES (1);
                     
-INSERT INTO customer_order (customer_id)
-					VALUES (2);
+-- INSERT INTO customer_order (customer_id)
+-- 					VALUES (2);
                     
-SELECT *
-FROM customer_order;
+-- SELECT *
+-- FROM customer_order;
 
--- Insert data into Order Item Table --
-INSERT INTO order_item VALUES (1, 3, 3); -- Customer 1 orders Cake
+-- -- Insert data into Order Item Table --
+-- INSERT INTO order_item VALUES (1, 3, 3); -- Customer 1 orders Cake
 
-INSERT INTO order_item VALUES (1, 1, 1); -- Customer 1 orders Chocolate
+-- INSERT INTO order_item VALUES (1, 1, 1); -- Customer 1 orders Chocolate
 
-INSERT INTO order_item VALUES (1, 5, 1); -- Customer 1 orders Dry Fruits
+-- INSERT INTO order_item VALUES (1, 5, 1); -- Customer 1 orders Dry Fruits
 
-INSERT INTO order_item VALUES (2, 1, 5); -- Customer 1 orders Chocolate
+-- INSERT INTO order_item VALUES (2, 1, 5); -- Customer 1 orders Chocolate
 
-INSERT INTO order_item VALUES (2, 3, 9); -- Customer 1 orders Cake
+-- INSERT INTO order_item VALUES (2, 3, 9); -- Customer 1 orders Cake
 
-INSERT INTO order_item VALUES (2, 4, 5); -- Customer 1 orders Dark Chocolate
+-- INSERT INTO order_item VALUES (2, 4, 5); -- Customer 1 orders Dark Chocolate
 
-SELECT *
-FROM order_item;
+-- SELECT *
+-- FROM order_item;
  
 
 

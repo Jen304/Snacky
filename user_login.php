@@ -36,7 +36,9 @@ include('includes/header.php');
             }
             //We can change to get user first name
             $_SESSION['user_email'] = $user_email;
-            header('location: index.php');
+            echo '<script> alert("Login successful");
+                          location="index.php";</script>';
+            //header('location: index.php');
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";
         }
