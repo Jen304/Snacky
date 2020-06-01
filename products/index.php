@@ -20,7 +20,7 @@
         }
     ?>
 	
-	<form class="form-inline" name="searchproduct" action="products.php" method="get">
+	<form class="form-inline" name="searchproduct" action="index.php" method="get">
 		<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
 		<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
 			<option selected>Choose...</option>
