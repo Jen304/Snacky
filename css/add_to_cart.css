@@ -1,0 +1,15 @@
+.btn-primary{
+	background-color:#cca300;
+	border-color: #cca300;
+	font-weight: bold;
+}
+
+.mb-3 {
+	margin-left: 30%;
+	margin-right: 30%;
+	padding: 12px 20px;
+	box-sizing: border-box;
+	border: 2px solid #000000;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+}

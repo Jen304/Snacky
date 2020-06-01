@@ -1,3 +1,21 @@
-table, th, td{
-    border: 1px solid black;
+body{
+	margin-left:50px;
+	margin-right:50px;
+}
+
+.card {
+    width: 300px;
+    height: 341px;
+    float: left;
+    margin-right: 10px;
+    border: 1px solid #000000;
+}
+
+.btn-primary {
+	margin-bottom:10px;
+	margin-left:10px;
+	margin-right: 10px;
+	background-color:#cca300;
+	border-color: #cca300;
+	font-weight: bold;
 }
