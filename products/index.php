@@ -3,7 +3,7 @@
  ?>
 <title>Products | Snacky</title>
 <!-- create seperate css file and include it, we can resuse it if applicable -->
-<link rel="stylesheet" href="../css/products.css">
+<link rel="stylesheet" href="../css/products2.css">
 </head>
 
 <body>
@@ -19,17 +19,22 @@
 
         }
     ?>
-    <form name="searchproduct" action="index.php" method="get">
-        <select name="category">
-            <option value="0">All</option>
-            <?php
+	
+	<form class="form-inline" name="searchproduct" action="products.php" method="get">
+		<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
+		<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
+			<option selected>Choose...</option>
+			<option value="0">All</option>
+			<?php
                     while($category = mysqli_fetch_array($categories, MYSQLI_ASSOC)){
                         echo "<option value=\"{$category["category_id"]}\"/>{$category["category_name"]}</option>";                        
                     }
             ?>
-            <input type="submit" value="Search">
-        </select>
-    </form>
+			
+		</select>
+		<button type="submit" class="btn btn-primary my-1">Search</button>
+	</form>
+	<br>
 
     <?php
     include('../includes/db_connection.php');
@@ -51,47 +56,23 @@
         echo "<script> alert('{$e->getMessage()}'); </script>";
     }
     // display products  
-
-    echo '<table name="display">
-        <tr>
-            <td>
-                <span class="text">Product ID</span>
-            </td>
-
-            <td>
-                <span class="text">Product Name</span>
-            </td>
-            <td>
-                <span class="text">Description</span>
-            </td>
-            <td>
-                <span class="text">Image</span>
-            </td>
-            <td>
-                <span class="text">Price</span>
-            </td>
-
-            <td>
-                <span class="text">Add to Cart</span>
-            </td>
-
-        </tr>';
         $prod_result = mysqli_query ($dbc, $prod);
         while ($product = mysqli_fetch_array ($prod_result, MYSQLI_ASSOC)) {
         $image_file_name = trim($product["image_name"]);
-        echo "<tr>
-            <td>{$product["product_id"]}</td>
-            <td>{$product["product_name"]}</td>
-            <td>{$product["product_desc"]}</td>
-            <td><img src='../images/products/{$image_file_name}' width='100' height='100' /></td>
-            <td>\${$product["unit_price"]}</td>
-            <td><input type='submit' value='Add'></td>";
-            echo "
-        </tr>";
-
-        }
-        echo "
-    </table>";
+        echo "<form action='add_to_cart.php' method='POST'>
+				<div class='card text-center mb-3'>
+					<img src='../images/products/{$image_file_name}' class='card-img-top' alt='...' width='70' height='135'>
+					<div class='card-body'>
+						<input type='//hidden//' name='pid' value={$product["product_id"]}>
+						<h5 class='card-title'>{$product["product_name"]}</h5>
+						<p class='card-text'>\${$product["unit_price"]}</p>
+					</div>
+					<div class='container'>
+						<button type='submit' class='btn btn-primary'>Buy</button>
+					</div>
+				</div>
+			</form";
+		}	
 
     mysqli_close($dbc);
     include ('../includes/footer.php');
