@@ -3,7 +3,7 @@
  ?>
 <title>Products | Snacky</title>
 <!-- create seperate css file and include it, we can resuse it if applicable -->
-<link rel="stylesheet" href="../css/products2.css">
+<link rel="stylesheet" href="../css/products.css">
 </head>
 
 <body>
