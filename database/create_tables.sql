@@ -90,10 +90,11 @@ DESC customer;
 
 -- Cart Item Table --
 CREATE TABLE cart_item(
-	customer_id INT,
-    product_id INT,
+    cart_item_id INT AUTO_INCREMENT,
+	customer_id INT NOT NULL,
+    product_id INT NOT NULL,
     quantity INT NOT NULL,
-    PRIMARY KEY (customer_id, product_id),
+    PRIMARY KEY (cart_item_id),
     FOREIGN KEY (customer_id)
     REFERENCES customer (customer_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id)
