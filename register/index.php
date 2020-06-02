@@ -12,6 +12,7 @@ include('../includes/header.php');
     <!--#########################-->
 
     <?php
+    
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         include('../includes/db_connection.php');
         //Get User Inputs
@@ -89,7 +90,10 @@ include('../includes/header.php');
         }
      }
 ?>
-
+    <!-- include nav bar -->
+    <?php
+        include('../includes/nav_bar.php');
+?>
 
     <!--#########################-->
     <!--          HTML           -->
@@ -107,7 +111,8 @@ include('../includes/header.php');
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Name</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="name" id="name" type="name" placeholder="Full Name" maxlength="50" required>
+                        <input class="form-control" name="name" id="name" type="name" placeholder="Full Name"
+                            maxlength="50" required>
                     </div>
                 </div>
 
@@ -115,7 +120,8 @@ include('../includes/header.php');
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Password</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="password" id="password" type="password" placeholder="Password" maxlength="20" required>
+                        <input class="form-control" name="password" id="password" type="password" placeholder="Password"
+                            maxlength="20" required>
                     </div>
                 </div>
 
@@ -123,7 +129,8 @@ include('../includes/header.php');
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Comfirm Password</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control"  type="password" id="comf_password" placeholder="Comfirm Password" maxlength="20" required>
+                        <input class="form-control" type="password" id="comf_password" placeholder="Comfirm Password"
+                            maxlength="20" required>
                     </div>
                 </div>
 
@@ -131,7 +138,8 @@ include('../includes/header.php');
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Street</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="street" type="text" placeholder="Street" maxlength="30" required>
+                        <input class="form-control" name="street" type="text" placeholder="Street" maxlength="30"
+                            required>
                     </div>
                 </div>
 
@@ -142,78 +150,82 @@ include('../includes/header.php');
                         <input class="form-control" name="city" type="text" placeholder="City" maxlength="20" required>
                     </div>
                 </div>
-                
+
                 <!-- Province (Optional field)-->
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Province</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="province" type="text" placeholder="Province(Optional)" maxlength="10">
+                        <input class="form-control" name="province" type="text" placeholder="Province(Optional)"
+                            maxlength="10">
                     </div>
                 </div>
-               
+
                 <!-- Country-->
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Country</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="country" type="text" placeholder="Country" maxlength="15" required>
+                        <input class="form-control" name="country" type="text" placeholder="Country" maxlength="15"
+                            required>
                     </div>
                 </div>
-                
+
                 <!-- Postal code-->
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Postal Code</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="post_code" type="text" placeholder="Postal Code" maxlength="10" required>
+                        <input class="form-control" name="post_code" type="text" placeholder="Postal Code"
+                            maxlength="10" required>
                     </div>
                 </div>
-                
+
                 <!-- Email-->
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Email</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="email" type="email" placeholder="Email" maxlength="40" required>
-                    </div>
-                </div>
-                
-                 <!-- Phone-->
-                 <div class="row">
-                    <label for="name" class="col-2 offset-2">Phone</label>
-                    <div class="form-group col-6 ">
-                        <input class="form-control" name="phone" type="text" placeholder="Phone Number(Optional)" onkeypress="return isNumber(event)" id="phone" maxlength="15">
+                        <input class="form-control" name="email" type="email" placeholder="Email" maxlength="40"
+                            required>
                     </div>
                 </div>
 
-                
+                <!-- Phone-->
+                <div class="row">
+                    <label for="name" class="col-2 offset-2">Phone</label>
+                    <div class="form-group col-6 ">
+                        <input class="form-control" name="phone" type="text" placeholder="Phone Number(Optional)"
+                            onkeypress="return isNumber(event)" id="phone" maxlength="15">
+                    </div>
+                </div>
+
+
                 <!-- Register Button -->
                 <div class="form-group col-6 offset-3">
-                    <button class="form-control btn btn-primary" id= "submit" type="submit">Register</button>
+                    <button class="form-control btn btn-primary" id="submit" type="submit">Register</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+    //Check if a number is being entered in the phone number field
+    function isNumber(event) {
+        let input = event.keyCode;
+        if (input > 48 && input < 57) {
+            return true;
+        }
+        return false;
+    }
 
-        //Check if a number is being entered in the phone number field
-        function isNumber(event){
-            let input = event.keyCode;
-            if(input > 48 && input < 57){
-                return true;
-            }
+
+    //Check if password and comfirm password fields match befor submitting a form 
+    function validate_password() {
+        let password = document.getElementById("password").value;
+        let comf_password = document.getElementById("comf_password").value;
+        if (password !== comf_password) {
+            alert("Password fields must match");
             return false;
         }
-
-       
-        //Check if password and comfirm password fields match befor submitting a form 
-        function validate_password(){
-            let password = document.getElementById("password").value;
-            let comf_password = document.getElementById("comf_password").value;
-            if(password !== comf_password){
-                alert("Password fields must match");
-                return false;
-            }
-        }
-    </script>    
+    }
+    </script>
     <?php
         include ('../includes/footer.php');
     ?>

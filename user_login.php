@@ -44,7 +44,10 @@ include('includes/header.php');
     }
 
 ?>
-
+    <!-- include nav bar -->
+    <?php
+        include('includes/nav_bar.php');
+?>
 
     <!--#########################-->
     <!--          HTML           -->

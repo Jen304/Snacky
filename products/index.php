@@ -8,6 +8,7 @@
 
 <body>
     <?php
+        include('../includes/nav_bar.php');
         include('../includes/db_connection.php');
         try{
             $categories_query = "SELECT * FROM category
@@ -19,22 +20,25 @@
 
         }
     ?>
-	
-	<form class="form-inline" name="searchproduct" action="index.php" method="get">
-		<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
-		<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
-			<option selected>Choose...</option>
-			<option value="0">All</option>
-			<?php
+
+    <div>
+
+        <form class="form-inline" name="searchproduct" action="index.php" method="get">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
+                <option selected>Choose...</option>
+                <option value="0">All</option>
+                <?php
                     while($category = mysqli_fetch_array($categories, MYSQLI_ASSOC)){
                         echo "<option value=\"{$category["category_id"]}\"/>{$category["category_name"]}</option>";                        
                     }
             ?>
-			
-		</select>
-		<button type="submit" class="btn btn-primary my-1">Search</button>
-	</form>
-	<br>
+
+            </select>
+            <button type="submit" class="btn btn-primary my-1">Search</button>
+        </form>
+    </div>
+    <br>
 
     <?php
     include('../includes/db_connection.php');

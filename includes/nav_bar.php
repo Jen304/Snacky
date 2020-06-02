@@ -40,7 +40,14 @@
             <span class="material-icons">
                 shopping_basket
             </span>
-            <div id="itemNum" class="rounded-circle bg-danger text-white align-middle">1</div>
+
+            <?php
+                if(!empty($_SESSION['cart'])){
+                    echo '<div id="cartCount" class="rounded-circle bg-danger text-white align-middle">'.sizeof($_SESSION['cart']).'
+                    </div>'; 
+                }
+                ?>
+
         </a>
 
     </div>
