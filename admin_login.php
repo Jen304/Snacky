@@ -1,9 +1,9 @@
 <?php
-include('../includes/header.php');
+include('includes/header.php');
 ?>
 
 <title>Admin Login | Snacky</title>
-<link rel="stylesheet" href="../css/admin_login.css">
+<link rel="stylesheet" href="css/admin_login.css">
 </head>
 
 <body>
@@ -11,7 +11,7 @@ include('../includes/header.php');
 <!------------------ PHP CODE ----------------->
 <?php 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	include('../includes/db_connection.php');
+	include('includes/db_connection.php');
 	if (isset($_POST['submit'])) {
 		//get user inputs
 		$admin_name=mysqli_real_escape_string($dbc, trim(strip_tags($_POST['admin_name'])));
@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$query = "SELECT * FROM administrator WHERE admin_name='$admin_name' AND admin_password='$password'";
 		//run query
 		try {
-			session_start();
 			if(($admin_name === '') || ($password === '')){
                 throw new Exception('All fields must be filled');
             }
@@ -38,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 			$_SESSION['admin_name'] = $admin_name;
 			echo '<script> alert("Login successful");
-                          location="admin_main_page.php";</script>';
+                          location="admin_page/admin_main_page.php";</script>';
 			//header('location:admin_main_page.php');
 			
 		}catch(Exception $ex){
@@ -76,5 +75,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	
 <?php
-include ('../includes/footer.php');
+include ('includes/footer.php');
 ?>

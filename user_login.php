@@ -18,7 +18,6 @@ include('includes/header.php');
         $password = sha1(mysqli_real_escape_string($dbc, trim(strip_tags($_POST['password']))));
         $select_query = "SELECT * FROM customer WHERE email = '$user_email' and customer_password = '$password'";
         try{
-            session_start();
             //Check if both field are filled
             if(($user_email === '') || ($password === '')){
                 throw new Exception('All fields must be filled');
