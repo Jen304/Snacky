@@ -8,6 +8,7 @@
 
 <body>
     <?php
+        include('../includes/nav_bar.php');
         include('../includes/db_connection.php');
         try{
             $categories_query = "SELECT * FROM category
@@ -19,26 +20,50 @@
 
         }
     ?>
-	
-	<form class="form-inline" name="searchproduct" action="index.php?" method="get">
-		<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
-		<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
-			<option selected>Choose...</option>
-			<option value="0">All</option>
-			<?php
+
+    <div class="container-fluid d-flex justify-content-between">
+        <?php
+        include('../includes/db_connection.php');
+        $category_id = (int)$_GET["category"];
+        try{
+            if($category_id > 0){
+                $category_query = "SELECT * FROM category
+                WHERE category_id = $category_id";
+
+                $result = mysqli_query($dbc, $category_query);
+                while($category = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                    $category_name = $category['category_name'];                        
+                }
+            
+        }else{
+            $category_name = 'All';
+            
+        }
+    }catch(Excepton $e){
+        echo "<script> alert('{$e->getMessage()}'); </script>";
+
+    }
+    echo '<p class="display-4">'.$category_name.'</p>';
+    ?>
+        <form class="form-inline" name="searchproduct" action="index.php" method="get">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
+                <option selected>Choose...</option>
+                <option value="0">All</option>
+                <?php
                     while($category = mysqli_fetch_array($categories, MYSQLI_ASSOC)){
                         echo "<option value=\"{$category["category_id"]}\"/>{$category["category_name"]}</option>";                        
                     }
             ?>
-			
-		</select>
-		<button type="submit" class="btn btn-primary my-1">Search</button>
-	</form>
-	<br>
 
-    <?php
-    include('../includes/db_connection.php');
-    $category_id = (int)$_GET["category"];
+            </select>
+            <button type="submit" class="btn btn-primary my-1">Search</button>
+        </form>
+    </div>
+    <div class="dropdown-divider"></div>
+    <div>
+        <?php
+    
     try{
         if($category_id > 0){
             $prod = "SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
@@ -76,5 +101,8 @@
 		}	
 
     mysqli_close($dbc);
+    ?>
+    </div>
+    <?php
     include ('../includes/footer.php');
     ?>

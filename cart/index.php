@@ -9,77 +9,107 @@
 <body>
     <?php
         include('../includes/nav_bar.php');
+        include('../includes/db_connection.php');
     ?>
 
     <div class="container">
         <p class="display-4">Your cart</p>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Unit Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Subtotal</th>
+        <?php
+            
+        $_SESSION['cart']=array(array("product_id"=>"1","quantity"=>2),
+        array("product_id"=>"2","quantity"=>4),
+        array("product_id"=>"3","quantity"=>5),
+        array("product_id"=>"4","quantity"=>7),
+        ); 
+        if(!empty($_SESSION['cart'])){
+        echo '<table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Subtotal</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <!-- id -->
-                    <th scope="row">1</th>
-                    <!-- name -->
-                    <td>Chocolate chips</td>
-                    <!-- Unit Price -->
-                    <td>5.59</td>
-                    <!-- Quantity -->
-                    <td>
-                        <form action="edit_quantity.php" method="post">
-                            <input hidden name="product_id" value="product_id">
-                            <input type="number" min="1" class="quantity" name="quantity">
-                            <div class="edit">
-                                <button type="submit" class="btn btn-dark">Save</button>
-                                <button type="button" class="btn btn-outline-dark cancel">Cancel</button>
-                            </div>
-                        </form>
-                        <!-- Subtotal -->
-                    <td>@mdo</td>
-                    <!-- Delete button -->
-                    <td><span class="material-icons">
-                            delete
-                        </span></td>
+            </tr>
+        </thead>
+        <tbody>';
+            $sumSubTotal = 0;
+        $max=sizeof($_SESSION['cart']);
+        for($i=0; $i<$max; $i++) { 
+                // get product_id
+                $product_id = $_SESSION['cart'][$i]['product_id'];
+                
+                // get product quantity
+                $quantity =  $_SESSION['cart'][$i]['quantity'];
 
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>@mdo</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th scope="col" colspan="4" class="text-right">Subtotal
-                    </th>
-                </tr>
-                <tr>
-                    <td colspan="5">
-                        <form action="check_user.php">
-                            <input type="submit" class="btn btn-warning float-right" id="checkoutButton"
-                                value="Checkout"></form>
-                    </td>
-                </tr>
+                // get product name and unit price from database                
+                try {
+                    $query = "SELECT product_name,  unit_price FROM product WHERE product_id = $product_id";
+                    $query_result = mysqli_query ($dbc, $query);
+                    while($product = mysqli_fetch_array($query_result, MYSQLI_ASSOC)){
+                        $product_name = $product['product_name'];  
+                        $unit_price = $product['unit_price'];                      
+                    }
+                    
+                    
+                }catch(Excepton $e){
+                    echo "<script> alert('{$e->getMessage()}'); </script>";
+                }
+                // calculate subtotal 
+                $subTotal = $unit_price * $quantity;
+                $sumSubTotal = $sumSubTotal + $subTotal;
+                                
+                echo '<tr>
+            <!-- id -->
+            <th scope="row">'. $product_id .'</th>
+            <!-- name -->
+            <td >'. $product_name .'</td>
+            <!-- Unit Price -->
+            <td>$'. $unit_price .'</td>
+            <!-- Quantity -->
+            <td>
+                <form action="edit_quantity.php" method="post">
+                    <input hidden name="product_id" value="'. $product_id .'">
+                    <input type="number" min="1" class="quantity" name="quantity" value="'.$quantity.'">
+                    <div class="edit">
+                        <button type="submit" class="btn btn-dark">Save</button>
+                        <button type="button" class="btn btn-outline-dark cancel">Cancel</button>
+                    </div>
+                </form>
+                <!-- Subtotal -->
+            <td> $'. number_format($subTotal, 2,",",".") .'</td>
+            <!-- Delete button -->
+            <td><span class="material-icons">
+                    delete
+                </span></td>
 
-            </tfoot>
-        </table>
+        </tr>';
+       
+       
+        } // outer array for loop
+
+        echo '</tbody>
+        <tfoot>
+            <tr>
+                <th scope="col" colspan="4" class="text-right">Subtotal
+                </th>
+                <th>$'. number_format($sumSubTotal, 2,",",".") .'</th>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <form action="check_user.php">
+                        <input type="submit" class="btn btn-warning float-right" id="checkoutButton"
+                            value="Checkout"></form>
+                </td>
+            </tr>
+
+        </tfoot>
+    </table>';
+}else{
+    echo '<p class="lead">Your cart is empty...</p>';
+}
+        ?>
         <div id=" checkout" class="d-flex justify-content-end">
 
         </div>
