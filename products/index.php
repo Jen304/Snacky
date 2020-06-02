@@ -20,7 +20,7 @@
         }
     ?>
 	
-	<form class="form-inline" name="searchproduct" action="index.php" method="get">
+	<form class="form-inline" name="searchproduct" action="index.php?" method="get">
 		<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
 		<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
 			<option selected>Choose...</option>
@@ -59,19 +59,20 @@
         $prod_result = mysqli_query ($dbc, $prod);
         while ($product = mysqli_fetch_array ($prod_result, MYSQLI_ASSOC)) {
         $image_file_name = trim($product["image_name"]);
-        echo "<form action='add_to_cart.php' method='POST'>
-				<div class='card text-center mb-3'>
+        echo "<div class='card text-center mb-3'>
 					<img src='../images/products/{$image_file_name}' class='card-img-top' alt='...' width='70' height='135'>
 					<div class='card-body'>
-						<input type='//hidden//' name='pid' value={$product["product_id"]}>
 						<h5 class='card-title'>{$product["product_name"]}</h5>
 						<p class='card-text'>\${$product["unit_price"]}</p>
 					</div>
-					<div class='container'>
-						<button type='submit' class='btn btn-primary'>Buy</button>
-					</div>
-				</div>
-			</form";
+					<form action='add_to_cart.php' method='POST'>
+						<input type='hidden' name='pid' value={$product["product_id"]}>
+						<div class='container'>
+							<button type='submit' class='btn btn-primary'>Buy</button>
+						</div>
+					</form>
+				</div>";
+			
 		}	
 
     mysqli_close($dbc);
