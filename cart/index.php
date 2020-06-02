@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody>';
-            
+            $sumSubTotal = 0;
         $max=sizeof($_SESSION['cart']);
         for($i=0; $i<$max; $i++) { 
                 // get product_id
@@ -43,27 +43,30 @@
                 // get product quantity
                 $quantity =  $_SESSION['cart'][$i]['quantity'];
 
-                // get product name                
+                // get product name and unit price from database                
                 try {
-                    $query = "SELECT product_name FROM product WHERE product_id = $product_id";
+                    $query = "SELECT product_name,  unit_price FROM product WHERE product_id = $product_id";
                     $query_result = mysqli_query ($dbc, $query);
                     while($product = mysqli_fetch_array($query_result, MYSQLI_ASSOC)){
-                        $product_name = $product['product_name'];                        
+                        $product_name = $product['product_name'];  
+                        $unit_price = $product['unit_price'];                      
                     }
                     
                     
                 }catch(Excepton $e){
                     echo "<script> alert('{$e->getMessage()}'); </script>";
                 }
-
+                // calculate subtotal 
+                $subTotal = $unit_price * $quantity;
+                $sumSubTotal = $sumSubTotal + $subTotal;
                                 
                 echo '<tr>
             <!-- id -->
             <th scope="row">'. $product_id .'</th>
             <!-- name -->
-            <td scope="row">'. $product_name .'</td>
+            <td >'. $product_name .'</td>
             <!-- Unit Price -->
-            <td>5.59</td>
+            <td>$'. $unit_price .'</td>
             <!-- Quantity -->
             <td>
                 <form action="edit_quantity.php" method="post">
@@ -75,7 +78,7 @@
                     </div>
                 </form>
                 <!-- Subtotal -->
-            <td>@mdo</td>
+            <td> $'. number_format($subTotal, 2,",",".") .'</td>
             <!-- Delete button -->
             <td><span class="material-icons">
                     delete
@@ -91,6 +94,7 @@
             <tr>
                 <th scope="col" colspan="4" class="text-right">Subtotal
                 </th>
+                <th>$'. number_format($sumSubTotal, 2,",",".") .'</th>
             </tr>
             <tr>
                 <td colspan="5">
