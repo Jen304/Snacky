@@ -1,5 +1,10 @@
 <?php
 include('../includes/header.php');
+//Check to see if an admin has logged in. Otherwaise, redirect to the admin login page
+if(!isset($_SESSION['admin_name'])){
+    echo '<script> alert("You must be logged in as an Admin to the system in order to add products");
+                   location = "../admin_login.php";</script>';
+}
 ?>
 <title>Add product | Snacky</title>
 <!-- create seperate css file and include it, we can resuse it if applicable -->
@@ -89,6 +94,7 @@ include('../includes/header.php');
             mysqli_close($dbc);	
             // re-connect with the database after POST request
             unset($dbc);
+            echo '<script> location="../admin_page/admin_main_page.php";</script>';
             
             
         }catch (Exception $e) {

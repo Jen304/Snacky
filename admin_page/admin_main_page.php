@@ -20,6 +20,7 @@ if (!isset($_SESSION['admin_name'])) {
 	echo '<form action="../logout.php" method="post">
 			<h1>You are now logged in!</h1>
 			<input type="hidden" name="logout" value="true" />
+			<a href="../add_product/index.php" class="btn btn-primary">Add Product</a>
 			<button type="submit" class="btn btn-danger">Logout</button>
 	      </form>';
 }
