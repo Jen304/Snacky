@@ -106,12 +106,12 @@ include('../includes/header.php');
             <!-- Register form header -->
             <h2 class="col-12 "> Register </h2>
             <!-- Register form -->
-            <form class="col-12" action="index.php" method="POST" onsubmit="return validate_password()">
+            <form class="col-12" action="index.php" method="POST" onsubmit="return validation()">
                 <!-- Customer full name -->
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Name</label>
                     <div class="form-group col-6 ">
-                        <input class="form-control" name="name" id="name" type="name" placeholder="Full Name"
+                        <input class="form-control" name="name" id="name" type="text" placeholder="Full Name"
                             maxlength="50" required>
                     </div>
                 </div>
@@ -215,14 +215,36 @@ include('../includes/header.php');
         return false;
     }
 
+    //Check to see if
+    //1, input fields contain invalid characters
+    //2, Password and comfirm password match
+    function validation(){
+        try{
+            invalid_character();
+            validate_password();
+        }catch(e){
+            alert(e.message);
+            return false;
+        }
+    }
+
+    //Check to see if input fields contain invalid characters
+    function invalid_character(){
+        const regix = new RegExp('[^A-Za-z0-9- ]');
+        let inputs = document.querySelectorAll('input[type="text"]');
+        for(let i = 0; i < inputs.length; i++){
+            if(inputs[i].value.match(regix) !== null){
+                throw new Error("Invalid character is included");       
+            }
+        }
+    }
 
     //Check if password and comfirm password fields match befor submitting a form 
     function validate_password() {
         let password = document.getElementById("password").value;
         let comf_password = document.getElementById("comf_password").value;
         if (password !== comf_password) {
-            alert("Password fields must match");
-            return false;
+            throw new Error("Password fields must match");
         }
     }
     </script>
