@@ -1,5 +1,9 @@
 <?php
 session_start();
+// initialze session cart if it is empty
+if(empty($_SESSION['cart'])){
+    $_SESSION['cart'] =array();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
