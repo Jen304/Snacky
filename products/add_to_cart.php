@@ -1,69 +1,59 @@
-<?php
+ <?php
     include ('../includes/header.php');
 	include('../includes/db_connection.php');
 ?>
- 
-<title>Add to Cart | Snacky</title>
-<link rel="stylesheet" href="../css/add_to_cart.css">
-</head>
 
-<body>
-	<?php
-		/*if (!isset($_SESSION['userid']) || $_SESSION['userid'] == "" || $_SESSION['admin'] == 0) {	
-			header('location:index.php');
-		}
-		*/
-		$prod_id = $_POST['pid'];
+<?php
+    
+	try {
 		
-		//query
-		$prodq="SELECT p.product_id, p.product_name, p.product_desc, i.image_name, p.unit_price
-				FROM product p, image i
-				WHERE p.image_id = i.image_id AND p.product_id = $prod_id;";
+		// check if there is a session started
+		if(!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = array();
+        }
+        
+		//adding product to the cart
+		$new_product = array("product_id"=>"$productid","quantity"=>"$quantity");
+		array_push($_SESSION['cart'],$new_product);
+        
+		//number of item in the cart
+        $max=sizeof($_SESSION['cart']);
+		
+        for($i=0; $i<$max; $i++) { 
 
-		$prodq_result = mysqli_query ($dbc, $prodq);
+			while (list ($key, $val) = each ($_SESSION['cart'][$i])) { 
+				echo "$key -> $val ,"; 
+			} // inner array while loop
+			echo "<br>";
+        } // outer array for loop
 		
-		//initialization of variables
-		while ($product = mysqli_fetch_array ($prodq_result, MYSQLI_ASSOC)) {
-			$name=$product["product_name"];
-			$description=$product["product_desc"];
-			$image_file_name = trim($product["image_name"]);
-			$price=$product["unit_price"];
-		}
-		//getting input from the form
-			
+	}
+	catch(Exception $ex){
+		echo "<script> alert('{$ex->getMessage()}');</script>";
+    }
+
+	if (!isset($_SESSION['userid']) || $_SESSION['userid'] == "") {	
+		header('location: index.php');
+	}
+	
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		// getting values from form
 		$userid = mysqli_real_escape_string($dbc, trim(strip_tags(strtoupper($_POST['userid']))));
 		$productid = mysqli_real_escape_string($dbc, trim(strip_tags(strtoupper($_POST['proid']))));
-		$quanty = mysqli_real_escape_string($dbc, trim(strip_tags($_POST['quantity'])));
-		
-		//adding product to the cart
+		$quantity = mysqli_real_escape_string($dbc, trim(strip_tags($_POST['quantity'])));
+			
 		$query = "INSERT INTO cart_item (customer_id, product_id, quantity)
 					VALUES ('$userid', '$productid', '$quanty');";
+			
+		//checking query
+		if(!mysqli_query($dbc, $query)){
+			?> <script> alert("Unable to add product to the cart"); </script><?php
+		}
+		else{
+			?> <script> alert("Product sucessfully added to the cart"); </script><?php
+		}
 		
-		
-		//display product information
-		echo 
-		"<div class='card mb-3' style='max-width: 540px;'>
-			<div class='row no-gutters'>
-				<div class='col-md-4'>
-					<img src='../images/products/{$image_file_name}' class='card-img-top' alt='...' width='70' height='150'>
-				</div>
-				<div class='col-md-8'>
-					<div class='card-body'>
-						<h5 class='card-title'>{$name}</h5>
-						<p class='card-text'>{$description}</p>
-						<p class='card-text'>\${$price}</p>
-						<form action='index.php' method='POST'>
-							<label class='my-1 mr-2' for='inlineFormCustomSelectPref'>Quantity:</label>
-							<input type='number' name='quantity' value='1' min='1' max='100' step='1'/></br><br>
-							<input type='hidden' name='proid' value={$prod_id}>
-							<input type='hidden' name='userid' value=//{$_SESSION['userid']}//>
-							<button type='submit' class='btn btn-primary'>Add to Cart</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>";
-
-		mysqli_close($dbc);
-		include ('../includes/footer.php');
-	?>
+		mysqli_query($dbc, $insert_category);
+		header('location: products.php');
+	}
+?>

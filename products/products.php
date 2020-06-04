@@ -45,7 +45,7 @@
     }
     echo '<p class="display-4">'.$category_name.'</p>';
     ?>
-        <form class="form-inline" name="searchproduct" action="index.php" method="get">
+        <form class="form-inline" name="searchproduct" action="products.php" method="get">
             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter by</label>
             <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
                 <option selected>Choose...</option>
@@ -90,7 +90,7 @@
 						<h5 class='card-title'>{$product["product_name"]}</h5>
 						<p class='card-text'>\${$product["unit_price"]}</p>
 					</div>
-					<form action='add_to_cart.php' method='POST'>
+					<form action='product_details.php' method='POST'>
 						<input type='hidden' name='pid' value={$product["product_id"]}>
 						<div class='container'>
 							<button type='submit' class='btn btn-primary'>Buy</button>
