@@ -33,10 +33,19 @@ include('includes/header.php');
             if(mysqli_num_rows($result) != 1){
                 throw new Exception('Email and Password do not match');
             }
+            // get user id from query
+            while ($user = mysqli_fetch_array ($result, MYSQLI_ASSOC)) {
+                $userid=$user["customer_id"];
+                
+            }
             //We can change to get user first name
             $_SESSION['user_email'] = $user_email;
+            $_SESSION['userid'] = $userid;
+            // initialize cart list
+            $_SESSION['cart'] =array();
             echo '<script> alert("Login successful");
                           location="index.php";</script>';
+            //echo $_SESSION['userid'];
             //header('location: index.php');
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";

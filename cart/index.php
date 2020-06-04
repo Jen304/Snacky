@@ -15,12 +15,7 @@
     <div class="container">
         <p class="display-4">Your cart</p>
         <?php
-        // this is just an example of cart session
-        $_SESSION['cart']=array(array("product_id"=>"1","quantity"=>2),
-        array("product_id"=>"2","quantity"=>4),
-        array("product_id"=>"3","quantity"=>5),
-        array("product_id"=>"4","quantity"=>7),
-        ); 
+        
         if(!empty($_SESSION['cart'])){
         echo '<table class="table table-striped">
         <thead>

@@ -14,7 +14,8 @@
         <div id="greeting-quote" class="container">
             <h1 class="display-1">time for snack</h1>
             <p class="text-white lead">Let enjoying wonderful snacks straight to your door.</p>
-            <button type="button" class="btn btn-warning mb-3">Let start!</button>
+            <button type="button" class="btn btn-warning mb-3"><a href="/products/" class="text-dark">Let
+                    start!</a></button>
         </div>
     </div>
     <div class="container" id="step-quote">

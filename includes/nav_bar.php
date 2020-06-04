@@ -1,6 +1,8 @@
 <nav class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom box-shadow">
 
-    <img src="/images/logo.png" class="mr-md-auto " id-"logo" alt="logo">
+    <div class="mr-md-auto">
+        <a href="/"><img src="/images/logo.png" id-"logo" alt="logo"></a>
+    </div>
 
     <div class="nav nav-bar justify-content-end align-items-center">
         <div class="nav-item ">
