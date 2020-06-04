@@ -188,7 +188,7 @@ if(!isset($_SESSION['admin_name'])){
 
 
         <!---------------- Image Upload --------------->
-        <div class="form-group row mb-5">
+        <div class="form-group row mt-5 mb-5">
             <label class="col-lg-3 col-md-3 col-sm-4 col-12 label-size label-center" for="image">Image</label>
             <div class="col-lg-2 col-md-4 col-sm-4 col-12 test">
                 <label class="btn btn-secondary" style="display: inline-block" id="image">
