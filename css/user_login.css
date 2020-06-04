@@ -1,7 +1,7 @@
 .container-fluid{
     /* background: blue; */
     width: 35%;
-    margin-top: 10%;
+    margin-top: 7%;
     border: 2px solid black;
 }
 h2{
@@ -16,4 +16,12 @@ form{
     /* background: yellow; */
     padding-top: 8%;
     padding-bottom: 8%;
+}
+
+p{
+    margin-left: 3%;
+}
+
+#register{
+    font-weight: bold;
 }

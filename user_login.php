@@ -60,20 +60,21 @@ include('includes/header.php');
             <!-- Login form -->
             <form class="col-12" action="user_login.php" method="POST">
                 <!-- User Name ( Email Adress ) -->
-                <div class="form-group col-6 offset-3">
+                <div class="form-group col-8 offset-2">
                     <input class="form-control" name="user_name" type="email" placeholder="Enter Email Adress...."
                         required>
                 </div>
                 <!-- User Password -->
-                <div class="form-group col-6 offset-3">
+                <div class="form-group col-8 offset-2">
                     <input class="form-control" name="password" type="password" placeholder="Enter Password...."
                         required>
                 </div>
                 <!-- Login Button -->
-                <div class="form-group col-6 offset-3">
+                <div class="form-group col-8 offset-2">
                     <button class="form-control btn btn-primary" type="submit">LOGIN</button>
                 </div>
             </form>
+            <p>New User? <a href="register/index.php" id="register">Register</a></p>
         </div>
     </div>
 
