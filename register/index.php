@@ -79,7 +79,12 @@ include('../includes/header.php');
             if(!$insert_result){
                 throw new Exception('Query failed');
             }
-            
+
+            //Get user id
+            $user_id = mysqli_insert_id($dbc);
+            //Store user id and email so that user is immedeately logged in after registration is successful
+            $_SESSION['user_email'] = $email;
+            $_SESSION['userid'] = $user_id;
             //If We want to have user logged inn after succesful registration 
             // $_SESSION['user_email'] = $user_email;
             echo '<script> alert("Registration successful\nRedirecting to homepage...");
