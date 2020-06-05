@@ -22,9 +22,7 @@ include('includes/header.php');
             if(($user_email === '') || ($password === '')){
                 throw new Exception('All fields must be filled');
             }
-
-            $result = mysqli_query($dbc, $select_query);
-            
+            $result = mysqli_query($dbc, $select_query); 
             //Check if query is successful
             if(!result){
                 throw new Exception('Query failed');
@@ -36,17 +34,44 @@ include('includes/header.php');
             // get user id from query
             while ($user = mysqli_fetch_array ($result, MYSQLI_ASSOC)) {
                 $userid=$user["customer_id"];
-                
             }
             //We can change to get user first name
             $_SESSION['user_email'] = $user_email;
             $_SESSION['userid'] = $userid;
             // initialize cart list
+            if(!empty($_SESSION['cart'])){
+                $max=sizeof($_SESSION['cart']);
+                for($i=0; $i<$max; $i++) { 
+                    // get product_id
+                    $productid = $_SESSION['cart'][$i]['product_id'];
+                    // get product quantity
+                    $quantity =  $_SESSION['cart'][$i]['quantity'];
+                    // get product name and unit price from database                
+                    $query = "INSERT INTO cart_item (customer_id, product_id, quantity)
+					            VALUES ('$userid', '$productid', '$quantity');";
+				        // run query, if it causes error, the catch will catch that error
+				    mysqli_query($dbc, $query);
+				    $item_id = mysqli_insert_id($dbc);
+				    echo $item_id;                        
+                }
+            }
             $_SESSION['cart'] =array();
+            // get the cart list from the database
+            $cart_query = "SELECT * FROM cart_item WHERE customer_id = '$userid';";
+            $cart_list = mysqli_query($dbc, $cart_query);
+            // if the cart list is not empty, input them to the session
+            if(mysqli_num_rows($cart_list) > 0){
+                while ($cart_item = mysqli_fetch_array ($cart_list, MYSQLI_ASSOC)) {
+                    $cart_id = $cart_item["cart_item_id"];
+                    $productid = $cart_item['product_id'];
+                    $quantity = $cart_item['quantity'];
+                    $new_item = array("cart_id"=> "$cart_id","product_id"=>"$productid","quantity"=>"$quantity");
+			        array_push($_SESSION['cart'],$new_item);  
+                }                
+            }
             echo '<script> alert("Login successful");
                           location="index.php";</script>';
-            //echo $_SESSION['userid'];
-            //header('location: index.php');
+            
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";
         }
