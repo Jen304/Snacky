@@ -62,10 +62,10 @@ include('includes/header.php');
             // if the cart list is not empty, input them to the session
             if(mysqli_num_rows($cart_list) > 0){
                 while ($cart_item = mysqli_fetch_array ($cart_list, MYSQLI_ASSOC)) {
-                    $cart_id = $cart_item["cart_item_id"];
+                    $customer_id = $cart_item["customer_id"];
                     $productid = $cart_item['product_id'];
                     $quantity = $cart_item['quantity'];
-                    $new_item = array("cart_id"=> "$cart_id","product_id"=>"$productid","quantity"=>"$quantity");
+                    $new_item = array("customer_id"=> "$customer_id","product_id"=>"$productid","quantity"=>"$quantity");
 			        array_push($_SESSION['cart'],$new_item);  
                 }                
             }
