@@ -5,8 +5,7 @@
 ?>
 
  <?php
-	//echo "helloword";
-	//echo $_SESSION['userid'];
+	
 	try {
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// get the value from the form

@@ -45,7 +45,15 @@
 
             <?php
                 if(!empty($_SESSION['cart'])){
-                    echo '<div id="cartCount" class="rounded-circle bg-danger text-white align-middle">'.sizeof($_SESSION['cart']).'
+                    $max=sizeof($_SESSION['cart']);
+                    $count = 0;
+                    for($i=0; $i<$max; $i++) {                 
+                        // get product quantity
+                        $quantity =  $_SESSION['cart'][$i]['quantity'];
+                        $count = $count + $quantity;
+                    }
+
+                    echo '<div id="cartCount" class="rounded-circle bg-danger text-white align-middle">'.$count.'
                     </div>'; 
                 }
                 ?>
