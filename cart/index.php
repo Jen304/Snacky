@@ -25,7 +25,14 @@
                 <th scope="col">Unit Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Subtotal</th>
-
+                <th scope="col">
+                    <form action="delete.php" method="POST">
+                        <button class="delete-button">
+                            <span class="material-icons">delete</span>
+                        </button>
+                        <input hidden name="all" value="yes">
+                    </form>
+                </th>
             </tr>
         </thead>
         <tbody>';
@@ -46,8 +53,7 @@
                         $product_name = $product['product_name'];  
                         $unit_price = $product['unit_price'];                      
                     }
-                    
-                    
+                        
                 }catch(Excepton $e){
                     echo "<script> alert('{$e->getMessage()}'); </script>";
                 }
@@ -75,10 +81,15 @@
                 <!-- Subtotal -->
             <td> $'. number_format($subTotal, 2,",",".") .'</td>
             <!-- Delete button -->
-            <td><span class="material-icons">
-                    delete
-                </span></td>
-
+            <td>
+                <form action="delete.php" method="POST">
+                    <button class="delete-button">
+                        <span class="material-icons">delete</span>
+                    </button>
+                    <input hidden name="product_id" value="'. $product_id .'">
+                    <input hidden name="all" value="no">
+                </form>
+            </td>
         </tr>';
        
        
@@ -98,7 +109,6 @@
                             value="Checkout"></form>
                 </td>
             </tr>
-
         </tfoot>
     </table>';
 }else{
