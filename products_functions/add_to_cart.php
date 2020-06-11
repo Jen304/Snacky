@@ -80,9 +80,12 @@
 		}
 	}catch(Exception $ex){
 		echo "<script> alert('{$ex->getMessage()}');</script>";
+		
     }		
  	mysqli_close($dbc);
 	//mysqli_query($dbc, $insert_category);
-	header('location: index.php');
+	echo '<script> alert("Product added to your cart");
+                           location="../products.php";</script>';
+	
 	
 ?>

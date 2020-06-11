@@ -9,6 +9,9 @@ DROP TABLE IF EXISTS customer_order;
 DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS order_item;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS customer_log;
+DROP TABLE IF EXISTS privacy_selection;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
 
@@ -126,3 +129,30 @@ CREATE TABLE order_item(
 );
 
 DESC order_item;
+
+-- Customer Log Table --
+CREATE TABLE customer_log(
+	log_id INT AUTO_INCREMENT,
+	customer_id INT NOT NULL,
+	login_date DATETIME NOT NULL,
+	PRIMARY KEY (log_id),
+    FOREIGN KEY (customer_id);
+	REFERENCES customer (customer_id) ON DELETE CASCADE
+);
+
+DESC customer_log;
+
+-- privacy_selection --
+CREATE TABLE privacy_selection(
+	selection_id INT AUTO_INCREMENT,
+	customer_id INT NOT NULL,
+	selection_date DATETIME NOT NULL,
+	selection_choice TINYINT(1) NOT NULL,
+	PRIMARY KEY (selection_id),
+    FOREIGN KEY (customer_id);
+	REFERENCES customer (customer_id) ON DELETE CASCADE
+);
+
+DESC privacy_selection;
+
+

@@ -1,15 +1,15 @@
 <?php
-    include ('../includes/header.php');
+    include ('includes/header.php');
  ?>
 <title>Products | Snacky</title>
 <!-- create seperate css file and include it, we can resuse it if applicable -->
-<link rel="stylesheet" href="../css/products.css">
+<link rel="stylesheet" href="css/products.css">
 </head>
 
 <body>
     <?php
-        include('../includes/nav_bar.php');
-        include('../includes/db_connection.php');
+        include('includes/nav_bar.php');
+        include('includes/db_connection.php');
         try{
             $categories_query = "SELECT * FROM category
             ORDER BY category_id";
@@ -23,7 +23,7 @@
 
     <div class="container-fluid d-flex justify-content-between">
         <?php
-        include('../includes/db_connection.php');
+        include('includes/db_connection.php');
         $category_id = (int)$_GET["category"];
         try{
             if($category_id > 0){
@@ -85,7 +85,7 @@
         while ($product = mysqli_fetch_array ($prod_result, MYSQLI_ASSOC)) {
         $image_file_name = trim($product["image_name"]);
         echo "<div class='card text-center mb-3'>
-					<img src='../images/products/{$image_file_name}' class='card-img-top' alt='...' width='70' height='135'>
+					<img src='images/products/{$image_file_name}' class='card-img-top' alt='...' width='70' height='135'>
 					<div class='card-body'>
 						<h5 class='card-title'>{$product["product_name"]}</h5>
 						<p class='card-text'>\${$product["unit_price"]}</p>
@@ -104,5 +104,5 @@
     ?>
     </div>
     <?php
-    include ('../includes/footer.php');
+    include ('includes/footer.php');
     ?>
