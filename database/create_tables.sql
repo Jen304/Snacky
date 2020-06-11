@@ -131,6 +131,7 @@ CREATE TABLE order_item(
 DESC order_item;
 
 -- Customer Log Table --
+/**
 CREATE TABLE customer_log(
 	log_id INT AUTO_INCREMENT,
 	customer_id INT NOT NULL,
@@ -138,11 +139,10 @@ CREATE TABLE customer_log(
 	PRIMARY KEY (log_id),
     FOREIGN KEY (customer_id);
 	REFERENCES customer (customer_id) ON DELETE CASCADE
-);
-
-DESC customer_log;
+);*/
 
 -- privacy_selection --
+/*
 CREATE TABLE privacy_selection(
 	selection_id INT AUTO_INCREMENT,
 	customer_id INT NOT NULL,
@@ -153,6 +153,12 @@ CREATE TABLE privacy_selection(
 	REFERENCES customer (customer_id) ON DELETE CASCADE
 );
 
-DESC privacy_selection;
+DESC privacy_selection;*/
+
+ALTER TABLE customer
+ADD last_login DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+ADD privacy_selection BOOLEAN;
+
+DESC customer;
 
 
