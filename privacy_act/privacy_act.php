@@ -1,8 +1,8 @@
 <?php
 include('../includes/header.php');
+include('../includes/db_connection.php');
 ?>
 <title>Privacy Act | Snacky</title>
-<!-- create seperate css file and include it, we can resuse it if applicable -->
 
 </head>
 
@@ -10,12 +10,58 @@ include('../includes/header.php');
 
 <?php
 
-echo '<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#privacy-policy">
-  Launch demo modal
-</button>
+	session_start();
+	
+	//getting userid from session
+	$userid = $_SESSION['userid'];
+	
+	//setup timezone
+	date_default_timezone_set('America/Vancouver');
 
-<!-- Modal -->
+	if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+		
+		//declaring variables
+		$current_login_date = date('Y-m-d H:i:s');
+		$privacy_selection = "SELECT * FROM privacy_selection WHERE customer_id = $userid;";
+		$result_pa = mysqli_query($dbc, $privacy_selection);
+		
+		//checking what button was clicked
+		//decline button behavior
+		if(isset($_POST["decline"])) {
+			//zero(0) means false for database
+			$selection = 0;
+			//What happend if no records
+			if(mysqli_num_rows($result_pa) < 1){
+				$paquery = "INSERT INTO privacy_selection (customer_id, selection_date, selection_choice)
+								VALUES ('$userid', '$current_login_date', '$selection');";
+				mysqli_query($dbc, $paquery);	
+			}
+			echo '<script> alert("You are logging out...");
+					location="../logout.php";</script>';
+		}
+		//accept button behavior
+		if(isset($_POST["accept"])) {
+			//one(1) means true for database
+			$selection = 1;
+			//what happend if no records
+			if(mysqli_num_rows($result_pa) < 1){
+				$paquery = "INSERT INTO privacy_selection (customer_id, selection_date, selection_choice)
+								VALUES ('$userid', '$current_login_date', '$selection');";
+				mysqli_query($dbc, $paquery);	
+			}
+			//what happend if records
+			if(mysqli_num_rows($result_pa) > 0){
+				$paquery = "UPDATE privacy_selection SET selection_date = NOW(), selection_choice = $selection
+								WHERE customer_id = $userid;";
+				mysqli_query($dbc, $paquery);	
+			}
+			
+			echo '<script> alert("You are logging in...");
+					location="../index.php";</script>';
+		}
+	}
+
+echo '<!-- Modal -->
 <div class="modal fade" id="privacy-policy" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
@@ -122,12 +168,27 @@ echo '<!-- Button trigger modal -->
 	we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
-        <button type="button" class="btn btn-primary">Accept</button>
+	  <form action="privacy_act.php" method="POST">
+		<input id="decline" name="decline" type="submit" class="btn btn-secondary" value="Decline">
+		<input id="accept" name="accept" type="submit" class="btn btn-secondary" value="Accept">
+	  </form>
       </div>
     </div>
   </div>
 </div>';
+?>
 
+<!--javascript to lunch the modal on a load page-->
+<script>
+	$(function() {
+		$("#privacy-policy").modal();
+	});
+</script>
+
+<?php
 include ('../includes/footer.php');
 ?>
+
+
+
+

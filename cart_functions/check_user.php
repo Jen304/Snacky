@@ -6,6 +6,6 @@ if(empty($_SESSION['user_email'])){
                           location="../user_login.php";</script>';
 
 }else{
-    header("Location: /checkout/");
+    header("Location: ../checkout_functions/checkout.php");
 }
 ?>

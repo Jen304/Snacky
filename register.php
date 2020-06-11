@@ -1,8 +1,9 @@
 <?php
-include('../includes/header.php');
+include('includes/header.php');
+
 ?>
 <title>Register | Snacky</title>
-<link rel="stylesheet" href="../css/register.css">
+<link rel="stylesheet" href="css/register.css">
 
 </head>
 
@@ -14,7 +15,7 @@ include('../includes/header.php');
     <?php
     
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        include('../includes/db_connection.php');
+        include('includes/db_connection.php');
         //Get User Inputs
         $name = preg_replace('/[^A-Za-z ]+/','',mysqli_real_escape_string($dbc, trim(strip_tags($_POST['name']))));
         $password = sha1(mysqli_real_escape_string($dbc, trim(strip_tags($_POST['password']))));
@@ -87,8 +88,8 @@ include('../includes/header.php');
             $_SESSION['userid'] = $user_id;
             //If We want to have user logged inn after succesful registration 
             // $_SESSION['user_email'] = $user_email;
-            echo '<script> alert("Registration successful\nRedirecting to homepage...");
-                           location="../index.php";</script>';
+            echo '<script> alert("Registration successful\nRedirecting...");
+                           location="./privacy_act/privacy_act.php";</script>';
             //header('location: index.php');
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";
@@ -97,7 +98,7 @@ include('../includes/header.php');
 ?>
     <!-- include nav bar -->
     <?php
-        include('../includes/nav_bar.php');
+        include('includes/nav_bar.php');
 ?>
 
     <!--#########################-->
@@ -111,7 +112,7 @@ include('../includes/header.php');
             <!-- Register form header -->
             <h2 class="col-12 "> Register </h2>
             <!-- Register form -->
-            <form class="col-12" action="index.php" method="POST" onsubmit="return validation()">
+            <form class="col-12" action="register.php" method="POST" onsubmit="return validation()">
                 <!-- Customer full name -->
                 <div class="row">
                     <label for="name" class="col-2 offset-2">Name</label>
@@ -254,5 +255,5 @@ include('../includes/header.php');
     }
     </script>
     <?php
-        include ('../includes/footer.php');
+        include ('includes/footer.php');
     ?>

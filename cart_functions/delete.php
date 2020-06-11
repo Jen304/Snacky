@@ -21,7 +21,7 @@
                 }
                 //Remove all items from session
                 $_SESSION['cart'] = array();
-                echo '<script>location="index.php";</script>';
+                echo '<script>location="../cart.php";</script>';
             }
             //If delete each item is clicked
             else{
@@ -48,7 +48,7 @@
                 }
                 //Re index the session array
                 $_SESSION['cart'] = array_values($_SESSION['cart']);
-                echo '<script>location="index.php";</script>';
+                echo '<script>location="../cart.php";</script>';
             }   
         }
         // If a user is not logged in
@@ -56,7 +56,7 @@
             //if delete all is clicked
             if($delete_all === 'yes'){
                 $_SESSION['cart'] = array();
-                echo '<script>location="index.php";</script>';
+                echo '<script>location="../cart.php";</script>';
             }
             // If delete each item is clicked
             else{
@@ -74,7 +74,7 @@
                 }
                 //Re index the session array
                 $_SESSION['cart'] = array_values($_SESSION['cart']);
-                echo '<script>location="index.php";</script>';
+                echo '<script>location="../cart.php";</script>';
             }
         }
     }

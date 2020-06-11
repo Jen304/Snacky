@@ -1,5 +1,6 @@
 <?php
 include('../includes/header.php');
+include('../includes/nav_bar.php');
 ?>
 <title>Admin Main Page | Snacky</title>
 <link rel="stylesheet" href="../css/admin_login.css">

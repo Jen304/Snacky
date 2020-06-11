@@ -1,15 +1,15 @@
 <?php
-    include('../includes/header.php');
+    include('includes/header.php');
 ?>
 <title>Your cart | Snacky</title>
 <!-- embed css file -->
-<link rel="stylesheet" href="../css/cart.css">
+<link rel="stylesheet" href="css/cart.css">
 </head>
 
 <body>
     <?php
-        include('../includes/nav_bar.php');
-        include('../includes/db_connection.php');
+        include('includes/nav_bar.php');
+        include('includes/db_connection.php');
     ?>
 
     <div class="container">
@@ -26,7 +26,7 @@
                 <th scope="col">Quantity</th>
                 <th scope="col">Subtotal</th>
                 <th scope="col">
-                    <form action="delete.php" method="POST">
+                    <form action="cart_functions/delete.php" method="POST">
                         <button class="delete-button">
                             <span class="material-icons">delete</span>
                         </button>
@@ -70,7 +70,7 @@
             <td>$'. $unit_price .'</td>
             <!-- Quantity -->
             <td>
-                <form action="edit_quantity.php" method="post">
+                <form action="cart_functions/edit_quantity.php" method="post">
                     <input hidden name="product_id" value="'. $product_id .'">
                     <input type="number" min="1" class="quantity" name="quantity" value="'.$quantity.'">
                     <div class="edit">
@@ -82,7 +82,7 @@
             <td> $'. number_format($subTotal, 2,",",".") .'</td>
             <!-- Delete button -->
             <td>
-                <form action="delete.php" method="POST">
+                <form action="cart_functions/delete.php" method="POST">
                     <button class="delete-button">
                         <span class="material-icons">delete</span>
                     </button>
@@ -104,7 +104,7 @@
             </tr>
             <tr>
                 <td colspan="5">
-                    <form action="check_user.php">
+                    <form action="cart_functions/check_user.php">
                         <input type="submit" class="btn btn-warning float-right" id="checkoutButton"
                             value="Checkout"></form>
                 </td>
@@ -115,7 +115,7 @@
     echo '<p class="lead">Your cart is empty...</p>';
 }
         ?>
-        <div id=" checkout" class="d-flex justify-content-end">
+        <div id="checkout" class="d-flex justify-content-end">
 
         </div>
         <script>
@@ -140,5 +140,5 @@
         </script>
 
         <?php
-        include('../includes/footer.php');
+        include('includes/footer.php');
     ?>

@@ -10,6 +10,7 @@ include('includes/header.php');
 
 <!------------------ PHP CODE ----------------->
 <?php 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	include('includes/db_connection.php');
 	if (isset($_POST['submit'])) {
@@ -49,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!----------------- HTML CODE ---------------->
+	<div id="header" class="container">
+		<a href="index.php"><img src="images/logo.png" id="logo" alt="logo"></a>
+	</div>
 	<form action="admin_login.php" method="POST" onsubmit="return validation();">
 		<div class="container">
 			<h1>Snacky Admin Login</h1>
@@ -70,6 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<label class="form-check-label" for="">Remember me</label>
 		</div>
 		<button type="submit" class="btn btn-primary" name="submit">Submit</button>
+		<a href="index.php">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" style="margin-left: 400px;"><path fill-rule="evenodd" d="M16 9l-3-3V2h-2v2L8 1 0 9h2l1 5c0 .55.45 1 1 1h8c.55 0 1-.45 1-1l1-5h2zm-4 5H9v-4H7v4H4L2.81 7.69 8 2.5l5.19 5.19L12 14z"></path></svg>
+		</a>
 	</form>
 <!---------------------END HTML------------------->
 

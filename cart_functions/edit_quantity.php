@@ -36,5 +36,5 @@
     }		
  	mysqli_close($dbc);
 	//mysqli_query($dbc, $insert_category);
-	header('location: index.php');
+	header('location: ../cart.php');
 ?>

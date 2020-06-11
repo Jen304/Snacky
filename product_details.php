@@ -1,10 +1,11 @@
 <?php
-    include ('../includes/header.php');
-	include('../includes/db_connection.php');
+    include ('includes/header.php');
+	include('includes/db_connection.php');
+	include('includes/nav_bar.php');
 ?>
 
 <title>Add to Cart | Snacky</title>
-<link rel="stylesheet" href="../css/add_to_cart.css">
+<link rel="stylesheet" href="css/product_details.css">
 </head>
 
 <body>
@@ -28,17 +29,17 @@
 		}
 		
 		echo 
-		"<div class='card mb-3' style='max-width: 540px;'>
+		"<div id='add' class='card mb-3' style='max-width: 540px;'>
 			<div class='row no-gutters'>
 				<div class='col-md-4'>
-					<img src='../images/products/{$image_file_name}' class='card-img-top' alt='...' width='70' height='150'>
+					<img src='images/products/{$image_file_name}' class='card-img-top' alt='...' width='70' height='150'>
 				</div>
 				<div class='col-md-8'>
 					<div class='card-body'>
 						<h5 class='card-title'>{$name}</h5>
 						<p class='card-text'>{$description}</p>
 						<p class='card-text'>\${$price}</p>
-						<form action='add_to_cart.php' method='POST'>
+						<form action='products_functions/add_to_cart.php' method='POST'>
 							<label class='my-1 mr-2' for='inlineFormCustomSelectPref'>Quantity:</label>
 							<input type='number' name='quantity' value='1' min='1' max='100' step='1'/></br><br>
 							<input type='hidden' name='proid' value={$prod_id}>
@@ -50,5 +51,5 @@
 		</div>";
 
 		mysqli_close($dbc);
-		include ('../includes/footer.php');
+		include ('includes/footer.php');
 	?>
