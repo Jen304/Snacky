@@ -156,7 +156,7 @@ CREATE TABLE privacy_selection(
 DESC privacy_selection;*/
 
 ALTER TABLE customer
-ADD last_login DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+ADD last_login timestamp DEFAULT CURRENT_TIMESTAMP, 
 ADD privacy_selection BOOLEAN;
 
 DESC customer;

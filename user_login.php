@@ -45,23 +45,23 @@ include('includes/header.php');
 			
 			//tracking login date and time
 			//setting timezone
-			date_default_timezone_set('America/Vancouver');
+			//date_default_timezone_set('America/Vancouver');
 			
 			//setting current date and time
-			$current_login_date = date('Y-m-d H:i:s');
+			//$current_login_date = date('Y-m-d H:i:s');
 			
 			//getting last login date from database
-			$last_login_date = "SELECT * FROM customer_log WHERE customer_id = $userid;";
-			$result_ld = mysqli_query($dbc, $last_login_date);
+			//$last_login_date = "SELECT * FROM customer_log WHERE customer_id = $userid;";
+			//$result_ld = mysqli_query($dbc, $last_login_date);
 			
 			
 			//inserting login date for first time customers	
-			if(mysqli_num_rows($result_ld) < 1){
-				$ldquery = "INSERT INTO customer_log (customer_id, login_date)
-									VALUES ('$userid', '$current_login_date');";
-				mysqli_query($dbc, $ldquery);		
-			}
-			
+			//if(mysqli_num_rows($result_ld) < 1){
+				//$ldquery = "INSERT INTO customer_log (customer_id, login_date)
+				//					VALUES ('$userid', '$current_login_date');";
+				//mysqli_query($dbc, $ldquery);		
+			//}
+			/*
 			//converting dates to integer for comparation
 			$currlogin = strtotime($current_login_date);
 			$lastlogin = strtotime($last_login_date);
@@ -76,7 +76,11 @@ include('includes/header.php');
 											WHERE customer_id = $userid;";
 					mysqli_query($dbc, $date_update_query);	
 				}
-			
+            */
+            $sql_query = "UPDATE customer SET last_login=current_timestamp() where customer_id=$userid";
+            mysqli_query($dbc, $sql_query);
+            
+            
             // initialize cart list
             if(!empty($_SESSION['cart'])){
                 $max=sizeof($_SESSION['cart']);

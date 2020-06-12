@@ -16,50 +16,62 @@ include('../includes/db_connection.php');
 	$userid = $_SESSION['userid'];
 	
 	//setup timezone
-	date_default_timezone_set('America/Vancouver');
+	//date_default_timezone_set('America/Vancouver');
 
 	if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
 		
 		//declaring variables
-		$current_login_date = date('Y-m-d H:i:s');
-		$privacy_selection = "SELECT * FROM privacy_selection WHERE customer_id = $userid;";
-		$result_pa = mysqli_query($dbc, $privacy_selection);
+		//$current_login_date = date('Y-m-d H:i:s');
+		//$privacy_selection = "SELECT * FROM privacy_selection WHERE customer_id = $userid;";
+		//$result_pa = mysqli_query($dbc, $privacy_selection);
 		
 		//checking what button was clicked
 		//decline button behavior
-		if(isset($_POST["decline"])) {
+		//if(isset($_POST["privacy"])) {
 			//zero(0) means false for database
-			$selection = 0;
+			//$selection = 0;
 			//What happend if no records
-			if(mysqli_num_rows($result_pa) < 1){
-				$paquery = "INSERT INTO privacy_selection (customer_id, selection_date, selection_choice)
-								VALUES ('$userid', '$current_login_date', '$selection');";
-				mysqli_query($dbc, $paquery);	
+			//if(mysqli_num_rows($result_pa) < 1){
+				//$paquery = "INSERT INTO privacy_selection (customer_id, selection_date, selection_choice)
+								//VALUES ('$userid', '$current_login_date', '$selection');";
+				//mysqli_query($dbc, $paquery);	
+			//$sql_query = "UPDATE customer SET privacy_selection=false where customer_id=$userid";
+			//mysqli_query($dbc, $sql_query);
 			}
-			echo '<script> alert("You are logging out...");
-					location="../logout.php";</script>';
-		}
+			//echo '<script> alert("You are logging out...");
+			//		location="../logout.php";</script>';
+		
 		//accept button behavior
-		if(isset($_POST["accept"])) {
+		if(isset($_POST["privacy"])) {
 			//one(1) means true for database
-			$selection = 1;
+			//$selection = 1;
 			//what happend if no records
-			if(mysqli_num_rows($result_pa) < 1){
-				$paquery = "INSERT INTO privacy_selection (customer_id, selection_date, selection_choice)
-								VALUES ('$userid', '$current_login_date', '$selection');";
-				mysqli_query($dbc, $paquery);	
+			//if(mysqli_num_rows($result_pa) < 1){
+				//$paquery = "INSERT INTO privacy_selection (customer_id, selection_date, selection_choice)
+				//				VALUES ('$userid', '$current_login_date', '$selection');";
+				//mysqli_query($dbc, $paquery);	
+				if($_POST["privacy"] == "Accept"){
+					
+					echo '<script> alert("You are logging in...");
+					location="../index.php";</script>';
+					
+				}else{
+					$sql_query = "UPDATE customer SET privacy_selection=false where customer_id=$userid";
+					mysqli_query($dbc, $sql_query);
+					echo '<script> alert("You are logging out...");
+					location="../logout.php";</script>';
+				}
+				
 			}
 			//what happend if records
-			if(mysqli_num_rows($result_pa) > 0){
-				$paquery = "UPDATE privacy_selection SET selection_date = NOW(), selection_choice = $selection
-								WHERE customer_id = $userid;";
-				mysqli_query($dbc, $paquery);	
-			}
+			//if(mysqli_num_rows($result_pa) > 0){
+			//	$paquery = "UPDATE privacy_selection SET selection_date = NOW(), selection_choice = $selection
+			//					WHERE customer_id = $userid;";
+			//	mysqli_query($dbc, $paquery);	
+			//}
 			
-			echo '<script> alert("You are logging in...");
-					location="../index.php";</script>';
-		}
-	}
+		
+	
 
 echo '<!-- Modal -->
 <div class="modal fade" id="privacy-policy" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
@@ -169,8 +181,8 @@ echo '<!-- Modal -->
       </div>
       <div class="modal-footer">
 	  <form action="privacy_act.php" method="POST">
-		<input id="decline" name="decline" type="submit" class="btn btn-secondary" value="Decline">
-		<input id="accept" name="accept" type="submit" class="btn btn-secondary" value="Accept">
+		<input id="decline" name="privacy" type="submit" class="btn btn-secondary" value="Decline">
+		<input id="accept" name="privacy" type="submit" class="btn btn-secondary" value="Accept">
 	  </form>
       </div>
     </div>
