@@ -89,7 +89,7 @@ include('includes/header.php');
             //If We want to have user logged inn after succesful registration 
             // $_SESSION['user_email'] = $user_email;
             echo '<script> alert("Registration successful\nRedirecting...");
-                           location="./privacy_act/privacy_act.php";</script>';
+                           location="/privacy_act";</script>';
             //header('location: index.php');
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";

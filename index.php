@@ -1,5 +1,6 @@
 <?php
     include('includes/header.php');
+    include('check_privacy.php');
 ?>
 <title>Snacky</title>
 <!-- embed css file from local repo -->

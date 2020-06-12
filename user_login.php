@@ -80,7 +80,7 @@ include('includes/header.php');
             $sql_query = "UPDATE customer SET last_login=current_timestamp() where customer_id=$userid";
             mysqli_query($dbc, $sql_query);
             
-            
+
             // initialize cart list
             if(!empty($_SESSION['cart'])){
                 $max=sizeof($_SESSION['cart']);
@@ -113,7 +113,7 @@ include('includes/header.php');
                 }                
             }
             echo '<script> alert("Login successful");
-                          location="./privacy_act/privacy_act.php";</script>';
+                          location="/privacy_act";</script>';
 				   
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";

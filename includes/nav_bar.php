@@ -29,11 +29,13 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="cart.php">Your cart</a>
                         <a class="dropdown-item" href="/">Order history</a>
+                        <a class="dropdown-item" href="/privacy_act">Privacy Policy</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>                
                 </div>';
             }
+            
         ?>
 
     </div>
@@ -57,11 +59,6 @@
                     </div>'; 
                 }
                 ?>
-
         </a>
-
     </div>
-
-
-
 </nav>

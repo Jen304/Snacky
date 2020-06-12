@@ -52,13 +52,13 @@ include('../includes/db_connection.php');
 				//mysqli_query($dbc, $paquery);	
 				if($_POST["privacy"] == "Accept"){
 					
-					echo '<script> alert("You are logging in...");
+					echo '<script> alert("Thank you for accepting...");
 					location="../index.php";</script>';
 					
 				}else{
 					$sql_query = "UPDATE customer SET privacy_selection=false where customer_id=$userid";
 					mysqli_query($dbc, $sql_query);
-					echo '<script> alert("You are logging out...");
+					echo '<script> alert("You can not login...");
 					location="../logout.php";</script>';
 				}
 				
@@ -79,9 +79,9 @@ echo '<!-- Modal -->
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title" id="title">Privacy Policy for Snacky</h2>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<a href="/"> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button></a>
       </div>
       <div class="modal-body">
 		<p>The Canadian federal government will be introducing a new privacy protection law within a few months called 
@@ -180,7 +180,7 @@ echo '<!-- Modal -->
 	we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
       </div>
       <div class="modal-footer">
-	  <form action="privacy_act.php" method="POST">
+	  <form action="index.php" method="POST">
 		<input id="decline" name="privacy" type="submit" class="btn btn-secondary" value="Decline">
 		<input id="accept" name="privacy" type="submit" class="btn btn-secondary" value="Accept">
 	  </form>
