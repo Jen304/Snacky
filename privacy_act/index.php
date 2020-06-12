@@ -51,7 +51,8 @@ include('../includes/db_connection.php');
 				//				VALUES ('$userid', '$current_login_date', '$selection');";
 				//mysqli_query($dbc, $paquery);	
 				if($_POST["privacy"] == "Accept"){
-					
+					$sql_query = "UPDATE customer SET privacy_selection=true where customer_id=$userid";
+					mysqli_query($dbc, $sql_query);					
 					echo '<script> alert("Thank you for accepting...");
 					location="../index.php";</script>';
 					
@@ -61,7 +62,6 @@ include('../includes/db_connection.php');
 					echo '<script> alert("You can not login...");
 					location="../logout.php";</script>';
 				}
-				
 			}
 			//what happend if records
 			//if(mysqli_num_rows($result_pa) > 0){
