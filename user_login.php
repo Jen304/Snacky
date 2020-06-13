@@ -43,40 +43,6 @@ include('includes/header.php');
             $_SESSION['user_email'] = $user_email;
             $_SESSION['userid'] = $userid;
 			
-			//tracking login date and time
-			//setting timezone
-			//date_default_timezone_set('America/Vancouver');
-			
-			//setting current date and time
-			//$current_login_date = date('Y-m-d H:i:s');
-			
-			//getting last login date from database
-			//$last_login_date = "SELECT * FROM customer_log WHERE customer_id = $userid;";
-			//$result_ld = mysqli_query($dbc, $last_login_date);
-			
-			
-			//inserting login date for first time customers	
-			//if(mysqli_num_rows($result_ld) < 1){
-				//$ldquery = "INSERT INTO customer_log (customer_id, login_date)
-				//					VALUES ('$userid', '$current_login_date');";
-				//mysqli_query($dbc, $ldquery);		
-			//}
-			/*
-			//converting dates to integer for comparation
-			$currlogin = strtotime($current_login_date);
-			$lastlogin = strtotime($last_login_date);
-			
-			//passing data with sessions
-			$_SESSION['curr_login'] = $currlogin;
-			$_SESSION['last_login'] = $currlogin;
-			
-			//updating login date and time
-			if($lastlogin < $currlogin) {
-					$date_update_query = "UPDATE customer_log SET login_date = NOW()
-											WHERE customer_id = $userid;";
-					mysqli_query($dbc, $date_update_query);	
-				}
-            */
             $sql_query = "UPDATE customer SET last_login=current_timestamp() where customer_id=$userid";
             mysqli_query($dbc, $sql_query);
             
@@ -113,7 +79,7 @@ include('includes/header.php');
                 }                
             }
             echo '<script> alert("Login successful");
-                          location="/privacy_act";</script>';
+                          location="./privacy_act/privacy_act.php";</script>';
 				   
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";
