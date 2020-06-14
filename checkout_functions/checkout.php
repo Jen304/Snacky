@@ -49,8 +49,9 @@
                         echo "<script> alert('{$e->getMessage()}'); </script>";
                     }
                 }
+                $total = number_format($total,2);
                 echo '<p class="col-2 offset-8 total">Total</p>';
-                echo '<p class="col-1  total"> $'.$total.'</p>';
+                echo '<p class="col-2  total"> $'.$total.'</p>';
             ?>
             <a class="btn btn-primary offset-9" href="../products.php">Continue Shopping</a>
         </div>
