@@ -1,0 +1,18 @@
+.box{
+    width: 60%;
+    margin: auto;
+    margin-top: 10%;
+}
+
+.center{
+    text-align: center;
+}
+
+.order_no{
+    color: red;
+    font-weight: bold;
+}
+
+.header{
+    margin-bottom: 10%;
+}
