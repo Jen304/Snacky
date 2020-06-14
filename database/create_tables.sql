@@ -137,7 +137,7 @@ CREATE TABLE customer_log(
 	customer_id INT NOT NULL,
 	login_date DATETIME NOT NULL,
 	PRIMARY KEY (log_id),
-    FOREIGN KEY (customer_id);
+    FOREIGN KEY (customer_id)
 	REFERENCES customer (customer_id) ON DELETE CASCADE
 );*/
 
@@ -149,7 +149,7 @@ CREATE TABLE privacy_selection(
 	selection_date DATETIME NOT NULL,
 	selection_choice TINYINT(1) NOT NULL,
 	PRIMARY KEY (selection_id),
-    FOREIGN KEY (customer_id);
+    FOREIGN KEY (customer_id)
 	REFERENCES customer (customer_id) ON DELETE CASCADE
 );
 
