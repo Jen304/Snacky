@@ -51,8 +51,8 @@ include('includes/header.php');
         }
         //If all fields are filled
         else{
-            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, province, country, postal_code, email, phone)
-                                               VALUES('$name', '$password', '$street', '$city', '$province', '$country', '$post_code', '$email', '$phone')";
+            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, province, country, postal_code, email, phone, last_login)
+                                               VALUES('$name', '$password', '$street', '$city', '$province', '$country', '$post_code', '$email', '$phone', current_timestamp())";
             //echo $insert_query;
         }
         
