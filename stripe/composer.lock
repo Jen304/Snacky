@@ -61,10 +61,6 @@
                 "payment processing",
                 "stripe"
             ],
-            "support": {
-                "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/master"
-            },
             "time": "2020-06-11T16:27:35+00:00"
         }
     ],
@@ -76,5 +72,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }

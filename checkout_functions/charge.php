@@ -6,29 +6,43 @@
 </head>
 <body>
 <?php
-    echo 'hello';
     include('../includes/db_connection.php');
     require_once('../stripe/config.php');
 
     $token  = $_POST['stripeToken'];
     $email  = $_POST['stripeEmail'];
     $total = $_POST['total'];
+
     //echo $token;
     //echo $email;
     //echo $total;
-/*
+
+   try{
+    $charge = \Stripe\Charge::create([
+        'amount' => $total,
+        'currency' => 'cad',
+        'description' => 'Snacky purchage',
+        'source' => $token,
+      ]);
+        /*
     $customer = \Stripe\Customer::create([
         'email' => $email,
         'source'  => $token,
     ]);
 
+
     $charge = \Stripe\Charge::create([
-        'customer' => $customer->id,
+        'customer' => 'cus_HTUEd46MSL6kUo',
         'amount'   => $total,
         'currency' => 'cad',
-    ]);
+        'source' => $token,
+    ]);*/
 
-*/
+   }catch(Exception $ex){
+    echo "<script> alert('{$e->getMessage()}'); </script>";
+}
+
+
     /////////////////////////////////////////////////////////////////////
     //                                                                ///  
     //    Insert cart items to order item and customer order table    ///
