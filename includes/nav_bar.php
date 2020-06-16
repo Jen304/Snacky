@@ -28,7 +28,7 @@
                 '.$_SESSION['user_email'].'</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="../cart.php">Your cart</a>
-                        <a class="dropdown-item" href="/">Order history</a>
+                        <a class="dropdown-item" href="/order_history">Order history</a>
                         <a class="dropdown-item" href="./privacy_act/privacy_policy.php">Privacy Policy</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../logout.php">Logout</a>

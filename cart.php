@@ -1,6 +1,5 @@
 <?php
     include('includes/header.php');
-    include('check_privacy.php');
 ?>
 <title>Your cart | Snacky</title>
 <!-- embed css file -->
