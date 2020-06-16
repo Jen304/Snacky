@@ -1,15 +1,22 @@
+    <?php
+     include('../includes/header.php');
+    ?>
     <title>Confirmation | Snacky</title>
     <link rel="stylesheet" href="../css/charge.css">
 </head>
+<body>
 <?php
-    include('../includes/header.php'); 
+    echo 'hello';
     include('../includes/db_connection.php');
     require_once('../stripe/config.php');
 
     $token  = $_POST['stripeToken'];
     $email  = $_POST['stripeEmail'];
     $total = $_POST['total'];
-
+    //echo $token;
+    //echo $email;
+    //echo $total;
+/*
     $customer = \Stripe\Customer::create([
         'email' => $email,
         'source'  => $token,
@@ -21,7 +28,7 @@
         'currency' => 'cad',
     ]);
 
-
+*/
     /////////////////////////////////////////////////////////////////////
     //                                                                ///  
     //    Insert cart items to order item and customer order table    ///
@@ -38,12 +45,21 @@
         //Get order id from just inserted data
         $order_id = mysqli_insert_id($dbc);
         $array_size = sizeof($_SESSION['cart']);
+
+        
         //Insert data into order item table
         for($i = 0; $i < $array_size; $i++){
             $product_id = $_SESSION['cart'][$i]['product_id'];
             $quantity = $_SESSION['cart'][$i]['quantity'];
             //Query to insert item to order item table
-            $insert_order_item_query = "INSERT INTO order_item VALUES ($order_id,$product_id, $quantity);";
+            // get the price of item
+            $query = "SELECT unit_price FROM product WHERE product_id = $product_id";
+            $query_result = mysqli_query ($dbc, $query);
+            while($product = mysqli_fetch_array($query_result, MYSQLI_ASSOC)){ 
+                $unit_price = $product['unit_price'];                      
+            }
+            $insert_order_item_query = "INSERT INTO order_item (order_id, product_id, quantity, unit_price) VALUES ($order_id,$product_id, $quantity, $unit_price);";
+            //echo $insert_order_item_query;
             if(!mysqli_query($dbc, $insert_order_item_query)){
                 throw new Exception('Query failed');
             }
@@ -86,3 +102,7 @@
         <p class="col-2 offset-3 order_no"> <?php echo "#$order_id"; ?></p>
     </div>
 </div>
+
+<?php
+        include('includes/footer.php');
+    ?>

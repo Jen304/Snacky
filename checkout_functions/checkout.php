@@ -110,7 +110,7 @@
                     data-description="Checkout"
                     data-amount="<?php echo $total * 100; ?>"
                     data-locale="auto"></script>
-                    <input hidden name="total" value="<?php echo $total * 100; ?>">
+                    <input hidden name="total" value="<?php echo $total; ?>">
                 </form>
             </div>
         </div>  

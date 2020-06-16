@@ -109,6 +109,7 @@ DESC cart_item;
 CREATE TABLE customer_order(
 	order_id INT AUTO_INCREMENT,
     customer_id INT NOT NULL,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (order_id),
     FOREIGN KEY (customer_id)
     REFERENCES customer (customer_id) ON DELETE CASCADE
@@ -121,6 +122,7 @@ CREATE TABLE order_item(
 	order_id INT,
     product_id INT,
     quantity INT NOT NULL,
+    unit_price FLOAT(5,2) NOT NULL,
     PRIMARY KEY (order_id, product_id),
     FOREIGN KEY (order_id)
     REFERENCES customer_order (order_id) ON DELETE CASCADE,
