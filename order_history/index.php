@@ -42,6 +42,7 @@ try{
             <td>
             <form action="./order_detail.php" method="POST">
             <input hidden name="order_id" value="'.$order_id.'">
+            <input hidden name="created_at" value="'.$created_at.'">
             <button type="submit" class="btn btn-warning">Detail</button></td>
         </form>
             
