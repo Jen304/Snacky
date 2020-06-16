@@ -1,6 +1,5 @@
 <?php
 include('includes/header.php');
-
 ?>
 <title>Register | Snacky</title>
 <link rel="stylesheet" href="css/register.css">
@@ -13,7 +12,7 @@ include('includes/header.php');
     <!--#########################-->
 
     <?php
-    
+  
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         include('includes/db_connection.php');
         //Get User Inputs
@@ -26,27 +25,30 @@ include('includes/header.php');
         $post_code = preg_replace('/[\s\W]+/','',mysqli_real_escape_string($dbc, trim(strip_tags($_POST['post_code']))));
         $email = mysqli_real_escape_string($dbc, trim(strip_tags($_POST['email'])));
         $phone = mysqli_real_escape_string($dbc, trim(strip_tags($_POST['phone'])));
-
         //Used to check email duplication
         $email_upper = strtoupper($email);
-        $select_query = "SELECT * FROM customer WHERE UPPER(email) = '$email_upper';";
+    
+
+
+
+    $select_query = "SELECT * FROM customer WHERE UPPER(email) = '$email_upper';";
         //Check which fields are filled
         //If province and phone are blanlk
         if(empty($province) && empty($phone)){
-            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, country, postal_code, email)
-                                               VALUES('$name', '$password', '$street', '$city', '$country', '$post_code', '$email')";
+            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, country, postal_code, email, last_login)
+                                               VALUES('$name', '$password', '$street', '$city', '$country', '$post_code', '$email', current_timestamp())";
             //echo $insert_query;
         }
         //If province is empty
         elseif(empty($province)){
-            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, country, postal_code, email, phone)
-                                               VALUES('$name', '$password', '$street', '$city', '$country', '$post_code', '$email', '$phone')";
+            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, country, postal_code, email, phone, last_login)
+                                               VALUES('$name', '$password', '$street', '$city', '$country', '$post_code', '$email', '$phone', current_timestamp())";
             //echo $insert_query;
         }
         //If phone is empty
         elseif(empty($phone)){
-            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, province, country, postal_code, email)
-                                               VALUES('$name', '$password', '$street', '$city', '$province', '$country', '$post_code', '$email')";
+            $insert_query = "INSERT INTO customer (customer_name, customer_password, street, city, province, country, postal_code, email, last_login)
+                                               VALUES('$name', '$password', '$street', '$city', '$province', '$country', '$post_code', '$email', current_timestamp())";
             //echo $insert_query;
         }
         //If all fields are filled
@@ -84,12 +86,15 @@ include('includes/header.php');
             //Get user id
             $user_id = mysqli_insert_id($dbc);
             //Store user id and email so that user is immedeately logged in after registration is successful
-            $_SESSION['user_email'] = $email;
+            
+			$_SESSION['user_email'] = $email;
             $_SESSION['userid'] = $user_id;
+			
+			
             //If We want to have user logged inn after succesful registration 
             // $_SESSION['user_email'] = $user_email;
             echo '<script> alert("Registration successful\nRedirecting...");
-                           location="/privacy_act";</script>';
+                           location="./privacy_act/privacy_act.php";</script>';
             //header('location: index.php');
         }catch(Exception $ex){
             echo "<script> alert('{$ex->getMessage()}');</script>";

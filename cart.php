@@ -105,6 +105,10 @@
             </tr>
             <tr>
                 <td colspan="5">
+					<form action="products.php">
+                        <input type="submit" class="btn btn-warning float-right" id="keepshopping"
+                            value="Continue Shopping" style="margin-left:50px;"></form>
+							
                     <form action="cart_functions/check_user.php">
                         <input type="submit" class="btn btn-warning float-right" id="checkoutButton"
                             value="Checkout"></form>
@@ -113,7 +117,10 @@
         </tfoot>
     </table>';
 }else{
-    echo '<p class="lead">Your cart is empty...</p>';
+    echo '<p class="lead">Your cart is empty...</p>
+		<form action="products.php">
+            <input type="submit" class="btn btn-warning float-left" id="emptyback"
+              value="Go to Products"></form>';
 }
         ?>
         <div id="checkout" class="d-flex justify-content-end">
