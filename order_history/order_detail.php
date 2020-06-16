@@ -10,6 +10,7 @@
  include('../includes/nav_bar.php');
  $order_id = $_POST['order_id'];
  $created_at = $_POST['created_at'];
+ $total = $_POST['total'];
  //echo $order_id;
  ?>
   <div class="container">
@@ -18,23 +19,25 @@
         <?php echo $order_id?></p>
         <p class="lead"><b>Created at:</b> 
         <?php echo $created_at ?></p>
+        <p class="lead"><b>Total:</b> $<?php echo number_format($total, 2,",",".") ?></p>
 </p>
 
 <?php
 try{
-    $query = "select *, sum(unit_price * quantity) as total from order_item where order_id = $order_id;";
+    $query = "select *  from order_item where order_id = $order_id;";
     $query_result = mysqli_query ($dbc, $query);
     if(mysqli_num_rows($query_result) > 0){
         echo ' <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Product id</th>
             <th scope="col">Product name</th>
             <th scope="col">Quanity</th>
             <th scope="col">Unit Price</th>
           </tr>
         </thead>
         <tbody>';
+        //echo mysqli_num_rows($query_result);
         while ($order = mysqli_fetch_array ($query_result, MYSQLI_ASSOC)) {
             $product_id = $order['product_id'];
             $unit_price = $order['unit_price'];
