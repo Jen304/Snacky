@@ -18,13 +18,24 @@
     //echo $total;
 
    try{
+    $customer = \Stripe\Customer::create(array(
+        'email' => $email,
+        'source'  => $token
+    ));
+  
+    $charge = \Stripe\Charge::create(array(
+        'customer' => $customer->id,
+        'amount'   => $total,
+        'currency' => 'cad'
+    ));
+       /*
     $charge = \Stripe\Charge::create([
         'amount' => $total,
         'currency' => 'cad',
         'description' => 'Snacky purchage',
         'source' => $token,
-      ]);
-        /*
+      ]);*/
+       /* 
     $customer = \Stripe\Customer::create([
         'email' => $email,
         'source'  => $token,
