@@ -45,7 +45,6 @@ if ($charge->paid == true) {
         }
         //Get order id from just inserted data
         $order_id = mysqli_insert_id($dbc);
-		$_SESSION['order_id'] = $order_id;
         $array_size = sizeof($_SESSION['cart']);
 
         
