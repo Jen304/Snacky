@@ -14,20 +14,31 @@
     $total = $_POST['total'];
 
    try{
+    $customer = \Stripe\Customer::create(array(
+        'email' => $email,
+        'source'  => $token
+    ));
+  
+    $charge = \Stripe\Charge::create(array(
+        'customer' => $customer->id,
+        'amount'   => $total,
+        'currency' => 'cad'
+    ));
+       /*
     $charge = \Stripe\Charge::create([
         'amount' => $total,
         'currency' => 'cad',
         'description' => 'Snacky purchage',
         'source' => $token,
-      ]);
+      ]);*/
 	  
    }catch(Exception $ex){
     echo "<script> alert('{$e->getMessage()}'); </script>";
 }
 
-if ($charge->paid == true) {
-	require_once('../create_order_file.php');
-}
+
+	
+
 
 
     /////////////////////////////////////////////////////////////////////
@@ -105,5 +116,7 @@ if ($charge->paid == true) {
 </div>
 
 <?php
+$_SESSION['order_id'] = $order_id;
+    require_once('../create_order_file.php');
 	include('includes/footer.php');
 ?>

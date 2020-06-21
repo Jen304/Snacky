@@ -1,0 +1,6 @@
+<html><h2>Order Summary</h2><table class=table table-striped table><tr><td>Customer Name:</td><td>Test One</td> 
+</tr><tr><td>Customer Address:</td> <td>32 Test Street</td> 
+</tr><tr><td>Customer email:</td><td>test@gmail.com</td> 
+</tr><tr><th>Product ID</th><th>Product Name</th><th>Quantity</th><th>Total</th><tr><td>6</td><td>Kentucky Butter Cake</td><td>1</td><td>4.98</td> 
+</tr><th>Product ID</th><th>Product Name</th><th>Quantity</th><th>Total</th><tr><td>10</td><td>Peanut Butter Caramel Candy Cups</td><td>1</td><td>5.98</td> 
+</tr>
