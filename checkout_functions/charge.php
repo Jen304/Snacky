@@ -13,10 +13,6 @@
     $email  = $_POST['stripeEmail'];
     $total = $_POST['total'];
 
-    //echo $token;
-    //echo $email;
-    //echo $total;
-
    try{
     $customer = \Stripe\Customer::create(array(
         'email' => $email,
@@ -35,23 +31,14 @@
         'description' => 'Snacky purchage',
         'source' => $token,
       ]);*/
-       /* 
-    $customer = \Stripe\Customer::create([
-        'email' => $email,
-        'source'  => $token,
-    ]);
-
-
-    $charge = \Stripe\Charge::create([
-        'customer' => 'cus_HTUEd46MSL6kUo',
-        'amount'   => $total,
-        'currency' => 'cad',
-        'source' => $token,
-    ]);*/
-
+	  
    }catch(Exception $ex){
     echo "<script> alert('{$e->getMessage()}'); </script>";
 }
+
+
+	
+
 
 
     /////////////////////////////////////////////////////////////////////
@@ -129,5 +116,7 @@
 </div>
 
 <?php
-        include('includes/footer.php');
-    ?>
+$_SESSION['order_id'] = $order_id;
+    require_once('../create_order_file.php');
+	include('includes/footer.php');
+?>
