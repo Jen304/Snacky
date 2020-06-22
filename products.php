@@ -20,7 +20,7 @@
 
         }
     ?>
-
+<div id="products">
     <div class="container-fluid d-flex justify-content-between">
         <?php
         include('includes/db_connection.php');
@@ -102,6 +102,7 @@
 
     mysqli_close($dbc);
     ?>
+    </div>
     </div>
     <?php
     include ('includes/footer.php');
