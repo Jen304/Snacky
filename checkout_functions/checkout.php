@@ -53,7 +53,7 @@
                 echo '<p class="col-2 offset-8 total">Total</p>';
                 echo '<p class="col-2  total"> $'.$total.'</p>';
             ?>
-            <a class="btn btn-primary offset-9" href="../products.php">Continue Shopping</a>
+            <a class="btn btn-primary offset-9 button" href="../products.php">Continue Shopping</a>
         </div>
         <!-- Customer Information -->
         <div class="row customer_info">
@@ -100,7 +100,7 @@
         <!-- Buttons -->
         <div class="row buttons">
             <!-- Back button -->
-            <a class="btn btn-primary col-1 offset-4" href="../cart.php">Back</a>
+            <a class="btn btn-primary col-2 offset-3 button" href="../cart.php">Back</a>
             <!-- Payment Button -->
             <div class=" col-2 offset-1">
                 <form action="charge.php" method="post">  

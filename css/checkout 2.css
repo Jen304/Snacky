@@ -1,0 +1,42 @@
+h1{
+    text-align: center;
+}
+
+#box{
+    width: 60%;
+}
+
+.total{
+    border-top: 2px dotted black;
+    padding-top: 1%;
+}
+
+.column{
+    border-bottom: 2px dotted black;
+    padding-bottom: 1%;
+}
+
+.stripe-button-el{
+    background-image: none;
+    background-color: #017aff;
+    padding: 0.375rem 0.75rem;  
+    border: 1px solid transparent;  
+}
+
+.stripe-button-el span{
+    background-image: none;
+    background-color: #017aff;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff;
+    border:none;    
+    box-shadow: none;
+}
+
+.buttons{
+    margin-top: 10%;
+}
+
+.address{
+    text-align: right;
+}

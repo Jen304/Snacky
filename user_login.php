@@ -114,7 +114,7 @@ include('includes/header.php');
                 </div>
                 <!-- Login Button -->
                 <div id="loginbutton" class="form-group col-8 offset-2">
-                    <button class="form-control btn btn-primary" type="submit">LOGIN</button>
+                    <button class="form-control btn btn-primary" id= "login" type="submit">LOGIN</button>
 				</div>
 				
             </form>
