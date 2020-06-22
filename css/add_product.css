@@ -15,6 +15,11 @@ form {
     font-size: 1.4rem;
 }
 
+.buttons{
+    background: #cca300;
+    border-color:#cca300;
+}
+
 @media (max-width: 575px){
     .label-center{
         text-align: center;

@@ -1,10 +1,7 @@
     <?php
      include('../includes/header.php');
     ?>
-    <title>Confirmation | Snacky</title>
-    <link rel="stylesheet" href="../css/charge.css">
-</head>
-<body>
+
 <?php
     include('../includes/db_connection.php');
     require_once('../stripe/config.php');
@@ -102,21 +99,12 @@
     catch(Exception $ex){
         echo "<script> alert('{$e->getMessage()}'); </script>";
     }
-    //Include nav bar here so that nav bar won't display any cart item quantity mark
-    include('../includes/nav_bar.php');
+    
 ?>
-<div class="containor-fluid box">
-    <div class="row">
-        <h2 class="col-12 center header"> Thank you for shopping at Snacky !</h2>
-    </div>
-    <div class="row">
-        <p class="col-5 offset-1 center"> Your order number is : </p>
-        <p class="col-2 offset-3 order_no"> <?php echo "#$order_id"; ?></p>
-    </div>
-</div>
 
 <?php
 $_SESSION['order_id'] = $order_id;
     require_once('../create_order_file.php');
-	include('includes/footer.php');
+    include('includes/footer.php');
+    header('Location: /confirmation.php');
 ?>

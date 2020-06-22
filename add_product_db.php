@@ -1,14 +1,14 @@
 <?php
-include('../includes/header.php');
+include('includes/header.php');
 //Check to see if an admin has logged in. Otherwaise, redirect to the admin login page
 if(!isset($_SESSION['admin_name'])){
     echo '<script> alert("You must be logged in as an Admin to the system in order to add products");
-                   location = "../admin_login.php";</script>';
+                   location = "admin_login.php";</script>';
 }
 ?>
 <title>Add product | Snacky</title>
 <!-- create seperate css file and include it, we can resuse it if applicable -->
-<link rel="stylesheet" href="../css/add_product.css">
+<link rel="stylesheet" href="css/add_product.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@ if(!isset($_SESSION['admin_name'])){
     <!--       PHP CODE          -->
     <!--#########################-->
     <?php
-    include('../includes/db_connection.php');
+    include('includes/db_connection.php');
     error_reporting(E_ALL & ~E_NOTICE); 
         // get value
          //Getting Product Name
@@ -94,7 +94,7 @@ if(!isset($_SESSION['admin_name'])){
             mysqli_close($dbc);	
             // re-connect with the database after POST request
             unset($dbc);
-            echo '<script> location="../admin_page/admin_main_page.php";</script>';
+            echo '<script> location="admin_main_page.php";</script>';
             
             
         }catch (Exception $e) {
@@ -109,7 +109,7 @@ if(!isset($_SESSION['admin_name'])){
             if(!is_uploaded_file($_FILES['image']['tmp_name'])){
                 echo "<script> alert('Image has been uploaded'); </script>"; 
             }
-            $destination = '../images/products/' . $file_name;
+            $destination = 'images/products/' . $file_name;
             if(move_uploaded_file($_FILES['image']['tmp_name'], $destination)){
                 echo "<script> alert('Image has been uploaded'); </script>"; 
 
@@ -126,7 +126,7 @@ if(!isset($_SESSION['admin_name'])){
     <!--#########################-->
     <div class="container-fluid h-100">
         <div class="row h-100  ">
-            <form class="col-12" action="index.php" method="POST" enctype="multipart/form-data" id="product_form">
+            <form class="col-12" action="add_product_db.php" method="POST" enctype="multipart/form-data" id="product_form">
                 <!---------------- Header --------------->
                 <h2 class="pb-4">Add Product</h2>
                 <!---------------- Product Name --------------->
@@ -161,7 +161,7 @@ if(!isset($_SESSION['admin_name'])){
                     That makes sure that the category list will be dynamic                
                 -->
                 <?php
-                    include('../includes/db_connection.php');
+                    include('includes/db_connection.php');
                     $categories_query = "SELECT * FROM category
                                     ORDER BY category_id";
 
@@ -203,11 +203,11 @@ if(!isset($_SESSION['admin_name'])){
         <div class="form-group row justify-content-center">
             <!---------------- Clear Button --------------->
             <div class="col-2">
-                <button type="reset" class="btn btn-primary">Clear</button>
+                <button type="reset" class="btn btn-primary buttons">Clear</button>
             </div>
             <!---------------- Submit Button --------------->
             <div class="col-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary buttons">Submit</button>
             </div>
         </div>
         </form>
@@ -257,5 +257,5 @@ if(!isset($_SESSION['admin_name'])){
     <!------------------------------------- JavaScript end ------------------------------------>
 
     <?php
-include ('../includes/footer.php');
+include ('includes/footer.php');
 ?>

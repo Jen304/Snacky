@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 			$_SESSION['admin_name'] = $admin_name;
 			echo '<script> alert("Login successful");
-                          location="admin_page/admin_main_page.php";</script>';
+                          location="admin_main_page.php";</script>';
 			//header('location:admin_main_page.php');
 			
 		}catch(Exception $ex){
