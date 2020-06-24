@@ -2,4 +2,4 @@ images/products/**
 /test
 *.icloud
 /checkout_functions/order_receipt/**
-/stripe/vendor/**
+stripe/vendor/**
