@@ -74,7 +74,7 @@ include('includes/db_connection.php');
 		
 
 	//path and name file
-	$file_name = "./order_receipt/order#$order_id.txt";
+	$file_name = "./order_receipt/order#$order_id.html";
 	//create the file
 	touch($file_name);
 	//Confirm that the file is writable
